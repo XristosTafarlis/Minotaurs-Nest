@@ -154,8 +154,8 @@ public static class MazeGenerator
         {
             for (int j = 0; j < height; ++j)
             {
-				if( i == 0 && j == 0){
-					maze[i, j] = WallState.LEFT | WallState.RIGHT | WallState.UP;	
+				if( i == (height/2) && j == 0 ){
+					maze[i, j] = WallState.UP;	
 				}
 				else if(i == width - 1 && j == height - 1){
 					maze[i, j] = WallState.RIGHT | WallState.LEFT | WallState.DOWN;
@@ -163,7 +163,6 @@ public static class MazeGenerator
                 maze[i, j] = initial;  // 1111
             }
         }
-        
         return ApplyRecursiveBacktracker(maze, width, height);
     }
 }

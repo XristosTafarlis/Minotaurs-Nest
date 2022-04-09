@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class wall : MonoBehaviour{
+public class WallTextureFlip : MonoBehaviour{
+	
 //Flips the UV on the backside of the cube so it matches the front and sides
      void OnValidate () {
          Vector2[] uvs = GetComponent<MeshFilter> ().sharedMesh.uv;

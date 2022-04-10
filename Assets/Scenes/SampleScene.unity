@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7666491f6ae16438b030c94baea392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 7759855890510402802, guid: 1d3a5f04f4b6f17449c48c3731b55b26, type: 3}
+  point: {fileID: 919132149155446097, guid: c2637acf19debf746afc05bb64a24cde, type: 3}
   mazeRenderer: {fileID: 266104877}
   numberOfAmphores: 12
 --- !u!4 &1204374412

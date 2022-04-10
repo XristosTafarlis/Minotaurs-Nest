@@ -17,7 +17,7 @@ public class PropsSpawner : MonoBehaviour{
 		width = mazeRenderer.GetComponent<MazeRenderer>().size;
 		
 		for(int i = 0; i < numberOfAmphores; i++){
-			Instantiate(point, new Vector3( Random.Range( -(size/2), size/2 ) * width, 0f, Random.Range( -(size/2) , size/2 ) * width), transform.rotation);
+			Instantiate(point, new Vector3( Random.Range( -(size/2), size/2 ) * width, -1f, Random.Range( -(size/2) , size/2 ) * width), transform.rotation);
 		}
     }
 

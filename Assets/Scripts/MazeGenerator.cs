@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using System;
 
 [Flags]
-public enum WallState
-{
+public enum WallState{
     // 0000 -> NO WALLS
     // 1111 -> LEFT,RIGHT,UP,DOWN
     LEFT = 1, // 0001
@@ -14,25 +13,20 @@ public enum WallState
     VISITED = 128, // 1000 0000
 }
 
-public struct Position
-{
+public struct Position{
     public int X;
     public int Y;
 }
 
-public struct Neighbour
-{
+public struct Neighbour{
     public Position Position;
     public WallState SharedWall;
 }
 
-public static class MazeGenerator
-{
+public static class MazeGenerator{
 
-    private static WallState GetOppositeWall(WallState wall)
-    {
-        switch (wall)
-        {
+    private static WallState GetOppositeWall(WallState wall){
+        switch (wall){
             case WallState.RIGHT: return WallState.LEFT;
             case WallState.LEFT: return WallState.RIGHT;
             case WallState.UP: return WallState.DOWN;
@@ -41,8 +35,8 @@ public static class MazeGenerator
         }
     }
 
-    private static WallState[,] ApplyRecursiveBacktracker(WallState[,] maze, int width, int height)
-    {
+    private static WallState[,] ApplyRecursiveBacktracker(WallState[,] maze, int width, int height){
+		
         // here we make changes
         var rng = new System.Random(/*seed*/);
         var positionStack = new Stack<Position>();
@@ -51,13 +45,11 @@ public static class MazeGenerator
         maze[position.X, position.Y] |= WallState.VISITED;  // 1000 1111
         positionStack.Push(position);
 
-        while (positionStack.Count > 0)
-        {
+        while (positionStack.Count > 0){
             var current = positionStack.Pop();
             var neighbours = GetUnvisitedNeighbours(current, maze, width, height);
 
-            if (neighbours.Count > 0)
-            {
+            if (neighbours.Count > 0){
                 positionStack.Push(current);
 
                 var randIndex = rng.Next(0, neighbours.Count);
@@ -71,22 +63,17 @@ public static class MazeGenerator
                 positionStack.Push(nPosition);
             }
         }
-
         return maze;
     }
 
-    private static List<Neighbour> GetUnvisitedNeighbours(Position p, WallState[,] maze, int width, int height)
-    {
+    private static List<Neighbour> GetUnvisitedNeighbours(Position p, WallState[,] maze, int width, int height){
         var list = new List<Neighbour>();
 
-        if (p.X > 0) // left
-        {
-            if (!maze[p.X - 1, p.Y].HasFlag(WallState.VISITED))
-            {
-                list.Add(new Neighbour
-                {
-                    Position = new Position
-                    {
+		//LEFT
+        if (p.X > 0){
+            if (!maze[p.X - 1, p.Y].HasFlag(WallState.VISITED)){
+                list.Add(new Neighbour{
+                    Position = new Position{
                         X = p.X - 1,
                         Y = p.Y
                     },
@@ -94,15 +81,12 @@ public static class MazeGenerator
                 });
             }
         }
-
-        if (p.Y > 0) // DOWN
-        {
-            if (!maze[p.X, p.Y - 1].HasFlag(WallState.VISITED))
-            {
-                list.Add(new Neighbour
-                {
-                    Position = new Position
-                    {
+		
+		// DOWN
+        if (p.Y > 0){
+            if (!maze[p.X, p.Y - 1].HasFlag(WallState.VISITED)){
+                list.Add(new Neighbour{
+                    Position = new Position{
                         X = p.X,
                         Y = p.Y - 1
                     },
@@ -110,14 +94,12 @@ public static class MazeGenerator
                 });
             }
         }
-
-        if (p.Y < height - 1) // UP
-        {
-            if (!maze[p.X, p.Y + 1].HasFlag(WallState.VISITED))
-            {
-                list.Add(new Neighbour
-                {
-                    Position = new Position
+		
+		//UP
+        if (p.Y < height - 1){
+            if (!maze[p.X, p.Y + 1].HasFlag(WallState.VISITED)){
+                list.Add(new Neighbour{
+					Position = new Position
                     {
                         X = p.X,
                         Y = p.Y + 1
@@ -126,15 +108,12 @@ public static class MazeGenerator
                 });
             }
         }
-
-        if (p.X < width - 1) // RIGHT
-        {
-            if (!maze[p.X + 1, p.Y].HasFlag(WallState.VISITED))
-            {
-                list.Add(new Neighbour
-                {
-                    Position = new Position
-                    {
+		
+		// RIGHT
+        if (p.X < width - 1){
+            if (!maze[p.X + 1, p.Y].HasFlag(WallState.VISITED)){
+                list.Add(new Neighbour{
+                    Position = new Position{
                         X = p.X + 1,
                         Y = p.Y
                     },
@@ -142,27 +121,25 @@ public static class MazeGenerator
                 });
             }
         }
-
         return list;
     }
 
-    public static WallState[,] Generate(int width, int height)
-    {
+    public static WallState[,] Generate(int width, int height){
+		
         WallState[,] maze = new WallState[width, height];
         WallState initial = WallState.RIGHT | WallState.LEFT | WallState.UP | WallState.DOWN;
-        for (int i = 0; i < width; ++i)
-        {
-            for (int j = 0; j < height; ++j)
-            {
-				if( i == (height/2) && j == 0 ){
-					maze[i, j] = WallState.UP;	
+		
+		//Creating gate
+		maze[ (width/2) , 0] = WallState.UP;
+		
+        for (int i = 0; i < width; ++i){
+            for (int j = 0; j < height; ++j){
+				if(!(i == width/2 && j == 0)){
+                	maze[i, j] = initial;  // 1111
 				}
-				else if(i == width - 1 && j == height - 1){
-					maze[i, j] = WallState.RIGHT | WallState.LEFT | WallState.DOWN;
-				}else
-                maze[i, j] = initial;  // 1111
             }
         }
+		maze[ width - 1 , height - 1 ] = WallState.DOWN;
         return ApplyRecursiveBacktracker(maze, width, height);
     }
 }

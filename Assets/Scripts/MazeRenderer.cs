@@ -5,11 +5,7 @@ public class MazeRenderer : MonoBehaviour
 
     [SerializeField]
     [Range(4, 30)]
-    private int width = 10;
-
-    [SerializeField]
-    [Range(4, 30)]
-    private int height = 10;
+    private int mazeSize = 10;
 
     [SerializeField]
     private float size = 1f;
@@ -17,47 +13,45 @@ public class MazeRenderer : MonoBehaviour
     [SerializeField]
     private Transform wallPrefab = null;
 
-    //[SerializeField]
-    //private Transform floorPrefab = null;
+    [SerializeField]
+    private Transform playerPrefab = null;
+	
+	[SerializeField]
+    private Transform fencePrefab = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        var maze = MazeGenerator.Generate(width, height);
+    void Start(){
+		
+		//Spawning player
+		Instantiate(playerPrefab, new Vector3( 0f, -0.4f, -( ( mazeSize * size / 2 ) + 2 ) ), transform.rotation);
+		
+		//Spawning fence
+		Instantiate(fencePrefab, new Vector3( -1f, 0, -( mazeSize * size / 2 + (size / 2) ) ), transform.rotation);
+		
+        var maze = MazeGenerator.Generate(mazeSize, mazeSize);
         Draw(maze);
     }
 
     private void Draw(WallState[,] maze){
-        //var floor = Instantiate(floorPrefab, new Vector3(0,-1,0) ,transform.rotation);
-        //floor.localScale = new Vector3(width, 1, height);
-
-        for (int i = 0; i < width; ++i)
-        {
-            for (int j = 0; j < height; ++j)
-            {
+        for (int i = 0; i < mazeSize; ++i){
+            for (int j = 0; j < mazeSize; ++j){
                 var cell = maze[i, j];
-                //var position = new Vector3(-width / 2 + i, 0, -height / 2 + j);
-				var position = new Vector3((-width / 2 + i) * size, 0, (-height / 2 + j) * size);
+				var position = new Vector3((-mazeSize / 2 + i) * size, 0, (-mazeSize / 2 + j) * size);
 
-                if (cell.HasFlag(WallState.UP))
-                {
+                if (cell.HasFlag(WallState.UP)){
                     var topWall = Instantiate(wallPrefab, transform) as Transform;
                     topWall.position = position + new Vector3(0, 0, size / 2);
                     topWall.localScale = new Vector3(size, topWall.localScale.y, topWall.localScale.z);
                 }
 
-                if (cell.HasFlag(WallState.LEFT))
-                {
+                if (cell.HasFlag(WallState.LEFT)){
                     var leftWall = Instantiate(wallPrefab, transform) as Transform;
                     leftWall.position = position + new Vector3(-size / 2, 0, 0);
                     leftWall.localScale = new Vector3(size, leftWall.localScale.y, leftWall.localScale.z);
                     leftWall.eulerAngles = new Vector3(0, 90, 0);
                 }
 
-                if (i == width - 1)
-                {
-                    if (cell.HasFlag(WallState.RIGHT))
-                    {
+                if (i == mazeSize - 1){
+                    if (cell.HasFlag(WallState.RIGHT)){
                         var rightWall = Instantiate(wallPrefab, transform) as Transform;
                         rightWall.position = position + new Vector3(+size / 2, 0, 0);
                         rightWall.localScale = new Vector3(size, rightWall.localScale.y, rightWall.localScale.z);
@@ -65,24 +59,14 @@ public class MazeRenderer : MonoBehaviour
                     }
                 }
 
-                if (j == 0)
-                {
-                    if (cell.HasFlag(WallState.DOWN))
-                    {
+                if (j == 0){
+                    if (cell.HasFlag(WallState.DOWN)){
                         var bottomWall = Instantiate(wallPrefab, transform) as Transform;
                         bottomWall.position = position + new Vector3(0, 0, -size / 2);
                         bottomWall.localScale = new Vector3(size, bottomWall.localScale.y, bottomWall.localScale.z);
                     }
                 }
             }
-
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

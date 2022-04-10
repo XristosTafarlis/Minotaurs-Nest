@@ -3,8 +3,10 @@ using System;
 
 [Flags]
 public enum WallState{
-    // 0000 -> NO WALLS
+    
+	// 0000 -> NO WALLS
     // 1111 -> LEFT,RIGHT,UP,DOWN
+	
     LEFT = 1, // 0001
     RIGHT = 2, // 0010
     UP = 4, // 0100
@@ -129,17 +131,15 @@ public static class MazeGenerator{
         WallState[,] maze = new WallState[width, height];
         WallState initial = WallState.RIGHT | WallState.LEFT | WallState.UP | WallState.DOWN;
 		
-		//Creating gate
-		maze[ (width/2) , 0] = WallState.UP;
-		
         for (int i = 0; i < width; ++i){
             for (int j = 0; j < height; ++j){
-				if(!(i == width/2 && j == 0)){
-                	maze[i, j] = initial;  // 1111
-				}
+                maze[i, j] = initial;  // 1111
             }
         }
-		maze[ width - 1 , height - 1 ] = WallState.DOWN;
+		
+		//Creating start and finish
+		maze[ ( width / 2 ) , 0] = WallState.UP;
+		maze[ ( width / 2 ) , height - 1 ] = WallState.DOWN;
         return ApplyRecursiveBacktracker(maze, width, height);
     }
 }

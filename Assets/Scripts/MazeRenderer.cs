@@ -1,14 +1,11 @@
 using UnityEngine;
 
-public class MazeRenderer : MonoBehaviour
-{
+public class MazeRenderer : MonoBehaviour{
 
-    [SerializeField]
-    [Range(4, 30)]
-    private int mazeSize = 10;
+    [Range(4, 50)]
+    public int mazeSize = 10;
 
-    [SerializeField]
-    private float size = 1f;
+    public float size = 1f;
 
     [SerializeField]
     private Transform wallPrefab = null;

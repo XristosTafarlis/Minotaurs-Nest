@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c087315c3ce769a43bded59edbad7d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 1
+  mouseSensitivity: 1.3
   playerBody: {fileID: 634136876794936201}
 --- !u!1 &8137158260364364731
 GameObject:
@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 2873021370216347749}
   - component: {fileID: 3799787802127905266}
   - component: {fileID: 7502821091632592817}
+  - component: {fileID: 8179009661780642001}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -297,3 +298,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amphorasNeeded: 4
+--- !u!114 &8179009661780642001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137158260364364731}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16df6c1ea4bbe5d4a9e2225a2d10430d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 2873021370216347749}
+  GroundCheck: {fileID: 6140995028596556350}
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  GroundDistance: 0.4
+  moveSpeed: 7
+  runAcceleration: 14
+  runDeacceleration: 10
+  airAcceleration: 2
+  airDeacceleration: 2
+  airControl: 0.3
+  sideStrafeAcceleration: 50
+  sideStrafeSpeed: 1
+  jumpSpeed: 8
+  friction: 6
+  playerFriction: 0
+  JumpQueue: 0
+  wishJump: 0
+  PlayerVel: {x: 0, y: 0, z: 0}
+  ModulasSpeed: 0
+  ZVelocity: 0
+  XVelocity: 0
+  moveDirection: {x: 0, y: 0, z: 0}
+  moveDirectionNorm: {x: 0, y: 0, z: 0}
+  playerView: {fileID: 0}
+  x: 0
+  z: 0
+  IsGrounded: 0
+  player: {fileID: 0}

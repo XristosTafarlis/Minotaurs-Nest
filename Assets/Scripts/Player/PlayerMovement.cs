@@ -6,7 +6,8 @@ public class PlayerMovement : MonoBehaviour{
 	
 	public CharacterController controller;
 	
-	public float speed = 12f;
+	public float speed = 3f;
+	public float runSpeedMultiplier = 2f;
 	public float gravity = -9.81f;
 	public float jumpHeight = 3f;
 	
@@ -34,9 +35,9 @@ public class PlayerMovement : MonoBehaviour{
 		
 		//Sprint with Left Shift
 		if(Input.GetButtonDown("Fire3")){
-			speed += 1;
+			speed *= runSpeedMultiplier;
 		}if(Input.GetButtonUp("Fire3")){
-			speed -= 1;
+			speed /= runSpeedMultiplier;
 		}
 		controller.Move(move * speed * Time.deltaTime);
 		

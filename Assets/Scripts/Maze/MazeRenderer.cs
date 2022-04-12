@@ -11,15 +11,15 @@ public class MazeRenderer : MonoBehaviour{
     private Transform wallPrefab = null;
 
     [SerializeField]
-    private Transform playerPrefab = null;
+    private Transform player = null;
 	
 	[SerializeField]
     private Transform fencePrefab = null;
 
     void Start(){
 		
-		//Spawning player
-		Instantiate(playerPrefab, new Vector3( 0f, -0.4f, -( ( mazeSize * size / 2 ) + 2 ) ), transform.rotation);
+		//Moving player to start
+		player.transform.position = new Vector3 ( 0f, -0.4f, -mazeSize*size/2 - 3);
 		
 		//Spawning fence
 		Instantiate(fencePrefab, new Vector3( -1f, 0, -( mazeSize * size / 2 + (size / 2) ) ), transform.rotation);

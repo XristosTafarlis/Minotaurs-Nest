@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor.AI;
 
 public class MazeRenderer : MonoBehaviour{
 
@@ -15,6 +16,8 @@ public class MazeRenderer : MonoBehaviour{
 	
 	[SerializeField]
     private Transform fence = null;
+	
+	
 
     void Start(){
 		
@@ -27,6 +30,10 @@ public class MazeRenderer : MonoBehaviour{
 		
         var maze = MazeGenerator.Generate(mazeSize, mazeSize);
         Draw(maze);
+		
+		//NavMeshBuilder.ClearAllNavMeshes();
+		NavMeshBuilder.BuildNavMesh();
+		
     }
 
     private void Draw(WallState[,] maze){

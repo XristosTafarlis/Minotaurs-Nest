@@ -14,15 +14,16 @@ public class MazeRenderer : MonoBehaviour{
     private Transform player = null;
 	
 	[SerializeField]
-    private Transform fencePrefab = null;
+    private Transform fence = null;
 
     void Start(){
 		
-		//Moving player to start
-		player.transform.position = new Vector3 ( 0f, -0.4f, -mazeSize*size/2 - 3);
+		//Moving player to starting position
+		player.transform.position = new Vector3 ( 0f, -0.4f, -mazeSize*size/2 - size);
 		
-		//Spawning fence
-		Instantiate(fencePrefab, new Vector3( -1f, 0, -( mazeSize * size / 2 + (size / 2) ) ), transform.rotation);
+		//Moving fence to starting position
+		//Instantiate(fencePrefab, new Vector3( -1f, 0, -( mazeSize * size / 2 + (size / 2) ) ), transform.rotation);
+		fence.transform.position = new Vector3 ( -0f, 0f, -mazeSize*size/2 - size/2);
 		
         var maze = MazeGenerator.Generate(mazeSize, mazeSize);
         Draw(maze);

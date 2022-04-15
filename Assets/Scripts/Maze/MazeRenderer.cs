@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor.AI;
+//using UnityEditor.AI;
 
 public class MazeRenderer : MonoBehaviour{
 
@@ -17,7 +17,9 @@ public class MazeRenderer : MonoBehaviour{
 	[SerializeField]
     private Transform fence = null;
 	
-	
+	[SerializeField]
+    private Transform minotaurPrefab = null;
+
 
     void Start(){
 		
@@ -28,13 +30,20 @@ public class MazeRenderer : MonoBehaviour{
 		//Instantiate(fencePrefab, new Vector3( -1f, 0, -( mazeSize * size / 2 + (size / 2) ) ), transform.rotation);
 		fence.transform.position = new Vector3 ( -0f, 0f, -mazeSize*size/2 - size/2);
 		
+		//Instantiating minotaur
+		Invoke("minotaurInstantiate", 1);
+		
         var maze = MazeGenerator.Generate(mazeSize, mazeSize);
         Draw(maze);
 		
 		//NavMeshBuilder.ClearAllNavMeshes();
-		NavMeshBuilder.BuildNavMesh();
+		//NavMeshBuilder.BuildNavMesh();
 		
     }
+	
+	void minotaurInstantiate(){
+		Instantiate(minotaurPrefab, new Vector3( 0, 0, 0), transform.rotation);
+	}
 
     private void Draw(WallState[,] maze){
         for (int i = 0; i < mazeSize; ++i){

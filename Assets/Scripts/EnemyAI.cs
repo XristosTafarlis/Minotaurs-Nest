@@ -35,7 +35,8 @@ public class EnemyAI : MonoBehaviour{
 	private bool hitWall;
 	
 	private void Awake(){
-        //player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player").transform;
+		mazeRenderer = GameObject.Find("MazeRenderer").transform;
         agent = this.GetComponent<NavMeshAgent>();
 		mazeSize = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;	//Maze size
 		width = mazeRenderer.GetComponent<MazeRenderer>().size;			//Wall width

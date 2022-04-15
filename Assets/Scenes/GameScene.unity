@@ -833,9 +833,8 @@ GameObject:
   - component: {fileID: 306631155}
   - component: {fileID: 306631154}
   - component: {fileID: 306631153}
-  - component: {fileID: 306631157}
   m_Layer: 3
-  m_Name: floor
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -917,22 +916,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &306631157
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 306631152}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.02, y: 1.515, z: 0.02}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: -0.335}
-  m_TimeToStationary: 0.5
 --- !u!1 &343532990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,23 +1856,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3c17ee034099c478dcb4c365bd6ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1148042528}
   player: {fileID: 554291009}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  whatIsPlayer:
+  mazeRenderer: {fileID: 266104879}
+  playerMask:
     serializedVersion: 2
     m_Bits: 64
-  health: 120
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 128
+  health: 100
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
   timeBetweenAttacks: 1
-  projectile: {fileID: 2824836391147235797, guid: 46112d9b8f2683240919ed51970dd12c, type: 3}
   sightRange: 10
   attackRange: 3
   playerInSightRange: 0
   playerInAttackRange: 0
+  seeWalls: 0
 --- !u!1 &1204374410
 GameObject:
   m_ObjectHideFlags: 0

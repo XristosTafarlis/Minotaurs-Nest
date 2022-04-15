@@ -1798,8 +1798,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1148042527}
-  - component: {fileID: 1148042529}
   - component: {fileID: 1148042528}
+  - component: {fileID: 1148042529}
   m_Layer: 0
   m_Name: Minotaur
   m_TagString: Untagged
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   attackRange: 3
   playerInSightRange: 0
   playerInAttackRange: 0
-  seeWalls: 0
+  hitWall: 0
 --- !u!1 &1204374410
 GameObject:
   m_ObjectHideFlags: 0

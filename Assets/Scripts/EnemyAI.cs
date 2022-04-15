@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour{
 	[SerializeField]
 	private bool playerInAttackRange;
 	[SerializeField]
-	private bool seeWalls;
+	private bool hitWall;
 	
 	private void Awake(){
         //player = GameObject.Find("Player").transform;
@@ -44,28 +44,30 @@ public class EnemyAI : MonoBehaviour{
 	
 	private void Update(){
 		//Check for sight and attack range
-		playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
-		playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
+		playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);		//Range of minoteur
+		playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);		//Range of minotaru's attack
 		
-		Vector3 directionToTarget = (player.position - transform.position).normalized;
-		seeWalls = Physics.Raycast(transform.position, directionToTarget, sightRange * 10, obstacleMask);
-		Debug.DrawRay(transform.position, directionToTarget * sightRange * 10, Color.blue);
+		Vector3 directionToTarget = (player.position - transform.position).normalized;				//Direction from minotaur to player
+		float distanseToPlayer = Vector3.Distance (player.position, transform.position);			//Distance between minotaur and player
 		
-		if (!playerInSightRange && !playerInAttackRange){
+		hitWall = Physics.Raycast(transform.position, directionToTarget, distanseToPlayer, obstacleMask);	//Check if there is a wall between player and minotaur
+		Debug.DrawRay(transform.position, directionToTarget * distanseToPlayer, Color.blue);		//Visualization of RayCast
+		
+		if (!playerInSightRange && !playerInAttackRange){		//If player outside range, patrol
 			Patroling();
 		}
 		
-		if (playerInSightRange && !playerInAttackRange){
-			if(!seeWalls){
-				ChasePlayer();
+		if (playerInSightRange && !playerInAttackRange){		//If player in range
+			if(!hitWall){
+				ChasePlayer();									//If minotaur sees player, chase else patrol
 			}else{
 				Patroling();
 			}
 		}
 		
-		if (playerInAttackRange && playerInSightRange){
-			if(!seeWalls){
-				AttackPlayer();	
+		if (playerInAttackRange && playerInSightRange){		//If in range to attack
+			if(!hitWall){
+				AttackPlayer();								//If minotaur sees player, Attack else patrol
 			}else{
 				Patroling();
 			}

@@ -1,10 +1,2 @@
-# Minotaurs-Nest
-
-Game's consept:
-
-Random maze every time you run the game.
-Player starts outside the maze.
-Player tries to collect 5 amphoras.
-Minotaur roamning arround the maze.
-Goal is to find him when you have collected the 5 amphoras.
-Kill the minotaur and with the help of a rope you had all along find your way out of the maze.
+In this branch, I added the nav mesh components so the minotaur can move through the randomly generated maze.  
+Still not 100% confident that this is how it should be implemented, therefore the second branch of this project.

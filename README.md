@@ -2,7 +2,7 @@
 
 Game's consept:
 
-Random maze every time you run the game.
+Random maze every time you run the game.\n
 Player starts outside the maze.
 Player tries to collect 5 amphoras.
 Minotaur roamning arround the maze.

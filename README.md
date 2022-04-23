@@ -1,5 +1,3 @@
-# Minotaurs-Nest
-
 Game's consept:
 
 Random maze every time you run the game.  

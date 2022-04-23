@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour{
 	
 	public int amphorasNeeded = 4;
+	public GameObject player;
 	
 	void Start(){
 		

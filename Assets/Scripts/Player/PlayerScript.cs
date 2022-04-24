@@ -3,11 +3,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour{
 	
 	public int amphorasNeeded = 4;
-	public int amphorasPicked = 0;
-
-	void Start(){
-		
-	}
+	[HideInInspector] public int amphorasPicked = 0;
 
 	void Update(){
 		
@@ -15,10 +11,11 @@ public class PlayerScript : MonoBehaviour{
 	
 	private void OnTriggerEnter(Collider other) {
 		if(other.gameObject.CompareTag("Amphora")){
+			other.GetComponent<CapsuleCollider>().enabled = false;
 			Destroy(other.gameObject, 1f);
 			amphorasNeeded -= 1;
 			amphorasPicked += 1;
+			Debug.Log(amphorasPicked);
 		}
-		Debug.Log(amphorasPicked);
 	}
 }

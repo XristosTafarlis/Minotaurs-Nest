@@ -2,9 +2,9 @@ using UnityEngine;
  
 public class UpDown : MonoBehaviour{
 	
-	public AnimationCurve myCurve;
-	public float Offset = 1;
-	public int yspeed = 50;
+	[SerializeField] private AnimationCurve myCurve;
+	[SerializeField] private float Offset = 1;
+	[SerializeField] private int yspeed = 50;
    
 	void Update(){
 		transform.position = new Vector3(transform.position.x, myCurve.Evaluate((Time.time % myCurve.length)) + Offset, transform.position.z);

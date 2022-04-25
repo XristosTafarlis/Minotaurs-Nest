@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour{
 	
-	public CharacterController controller;
+	[SerializeField] private CharacterController controller;
 	
-	public float speed = 3f;
-	public float runSpeedMultiplier = 2f;
-	public float gravity = -9.81f;
-	public float jumpHeight = 3f;
+	[SerializeField] private float speed = 3f;
+	[SerializeField] private float runSpeedMultiplier = 2f;
+	[SerializeField] private float gravity = -9.81f;
+	[SerializeField] private float jumpHeight = 3f;
 	
-	public Transform groundCheck;
-	public float groundDistance;
-	public LayerMask groundMask;
+	[SerializeField] private Transform groundCheck;
+	[SerializeField] private float groundDistance;
+	[SerializeField] private LayerMask groundMask;
 
 	Vector3 velocity;
 	bool isGrounded;
 
-    void Update(){
+	void Update(){
 		//Checking if player is grounded
 		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 		
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour{
 			velocity.y = -2f;
 		}
 		
-        float x = Input.GetAxis("Horizontal");
+		float x = Input.GetAxis("Horizontal");
 		float z = Input.GetAxis("Vertical");
 		
 		//Movement WASD
@@ -49,5 +49,5 @@ public class PlayerMovement : MonoBehaviour{
 		velocity.y += gravity * Time.deltaTime;
 		
 		controller.Move(velocity * Time.deltaTime);
-    }
+	}
 }

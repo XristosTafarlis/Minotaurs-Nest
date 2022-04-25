@@ -3,7 +3,9 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour{
 	
 	public int amphorasNeeded = 4;
-	[HideInInspector] public int amphorasPicked = 0;
+	
+	[HideInInspector] 
+	public int amphorasPicked = 0;
 
 	void Update(){
 		

@@ -5,15 +5,19 @@ public class MainUI : MonoBehaviour{
 	
 	[SerializeField] GameObject player;
 	
-	public Text amphorasTxt;
+	[SerializeField] private Text amphorasTxt;
 	private int amphoras, maxAmphoras;
 	
 	void Start(){
 		maxAmphoras = player.GetComponent<PlayerScript>().amphorasNeeded;
 	}
 	
-	void FixedUpdate(){
-		amphoras = player.GetComponent<PlayerScript>().amphorasPicked;
-		amphorasTxt.text = "Amphoras : " + amphoras + " of " + maxAmphoras;
+	void Update(){
+		if(amphoras < maxAmphoras){
+			amphoras = player.GetComponent<PlayerScript>().amphorasPicked;
+			amphorasTxt.text = "Amphoras : " + amphoras + " of " + maxAmphoras;
+		}else{
+			amphorasTxt.text = "Amphoras : " + maxAmphoras + " of " + maxAmphoras + ", you can now kill the minotaur";
+		}
 	}
 }

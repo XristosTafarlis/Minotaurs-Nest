@@ -4,33 +4,35 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour{
 	private NavMeshAgent agent;
 
-	public Transform player;
+	[SerializeField] private Transform player;
 	
 	public Transform mazeRenderer;
 	private int mazeSize;		//Refference to maze size
 	private float width;		//Refference to wall width
 
-	public LayerMask playerMask;
-	public LayerMask obstacleMask;
+	[SerializeField] private LayerMask playerMask;
+	[SerializeField] private LayerMask obstacleMask;
 
-	public float health;
+	[SerializeField] private float health;
 
 	//Patroling
-	public Vector3 walkPoint;
+	[SerializeField] private Vector3 walkPoint;
 	bool walkPointSet;
 
 	//Attacking
-	public float timeBetweenAttacks;
+	[SerializeField] private float timeBetweenAttacks;
 	bool alreadyAttacked;
 
 	//States
-	public float sightRange;
-	public float attackRange;
+	[SerializeField] private float sightRange;
+	[SerializeField] private float attackRange;
 	
 	[SerializeField]
 	private bool playerInSightRange;
+	
 	[SerializeField]
 	private bool playerInAttackRange;
+	
 	[SerializeField]
 	private bool hitWall;
 	
@@ -38,7 +40,7 @@ public class EnemyAI : MonoBehaviour{
         player = GameObject.Find("Player").transform;
 		mazeRenderer = GameObject.Find("MazeRenderer").transform;
         agent = this.GetComponent<NavMeshAgent>();
-		mazeSize = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;	//Maze size
+		mazeSize = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;		//Maze size
 		width = mazeRenderer.GetComponent<MazeRenderer>().size;			//Wall width
 
 	}
@@ -60,16 +62,16 @@ public class EnemyAI : MonoBehaviour{
 		
 		if (playerInSightRange && !playerInAttackRange){		//If player in range
 			if(!hitWall){
-				ChasePlayer();									//If minotaur sees player, chase else patrol
-			}else{
+				ChasePlayer();									//If minotaur sees player, chase 
+			}else{												//Else patrol
 				Patroling();
 			}
 		}
 		
 		if (playerInAttackRange && playerInSightRange){		//If in range to attack
 			if(!hitWall){
-				AttackPlayer();								//If minotaur sees player, Attack else patrol
-			}else{
+				AttackPlayer();								//If minotaur sees player, attack
+			}else{											//Else patrol
 				Patroling();
 			}
 		}

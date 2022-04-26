@@ -8,13 +8,21 @@ public class Menu : MonoBehaviour{
 	[SerializeField]
 	private GameObject settingsMenuUI;
 	
+	[SerializeField] private GameObject mazeRendererReference;
+	
 	public static bool gameIsPaused = false;
+	private bool inSettings = false; 
 	
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			
 			if(gameIsPaused == true){
-				Resume();
+				if(!inSettings){
+					Resume();
+				}else{
+					Back();
+				}
+				
 			}else{
 				Pause();
 			}
@@ -36,18 +44,26 @@ public class Menu : MonoBehaviour{
 	}
 	
 	public void settings(){
+		inSettings = true;
 		pauseMenuUI.SetActive(false);
 		settingsMenuUI.SetActive(true);
 	}
 	
 	public void Back(){
+		inSettings = false;
 		settingsMenuUI.SetActive(false);
 		pauseMenuUI.SetActive(true);
 	}
 	
 	public void Sensitivity(float sens){
 		PlayerLook.mouseSensitivity = sens;
-		Debug.Log(sens);
+		//Debug.Log(sens);
+	}
+	
+	public void SetSize( int sze){
+		Debug.Log(sze);
+		//mazeRendererReference.GetComponent<MazeRenderer>().mazeSize = sze.ToString;
+		//Debug.Log(mazeRendererReference.GetComponent<MazeRenderer>().mazeSize);
 	}
 	
 	public void quitGame(){

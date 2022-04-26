@@ -1,4 +1,6 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour{
 	
@@ -8,10 +10,18 @@ public class Menu : MonoBehaviour{
 	[SerializeField]
 	private GameObject settingsMenuUI;
 	
-	[SerializeField] private GameObject mazeRendererReference;
+	[SerializeField]
+	private GameObject mazeSizeInputField;
+	
+	[SerializeField]
+	private GameObject mazeRendererReference;
+	
+	[HideInInspector]
+	public static int mazeS;
 	
 	public static bool gameIsPaused = false;
-	private bool inSettings = false; 
+	private bool inSettings = false;
+	
 	
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
@@ -60,10 +70,17 @@ public class Menu : MonoBehaviour{
 		//Debug.Log(sens);
 	}
 	
-	public void SetSize( int sze){
-		Debug.Log(sze);
-		//mazeRendererReference.GetComponent<MazeRenderer>().mazeSize = sze.ToString;
-		//Debug.Log(mazeRendererReference.GetComponent<MazeRenderer>().mazeSize);
+	public void SetSize(float sze){
+		Debug.Log("Maze size set to : " + sze);
+		mazeS = (int)sze;
+		mazeRendererReference.GetComponent<MazeRenderer>().mazeSize = (int)sze;
+	}
+	
+	public void Restart(){
+		gameIsPaused = false;						//Unpause
+		Time.timeScale = 1f;						//Unstuck
+		Cursor.lockState = CursorLockMode.None;		//Free mouse
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 	
 	public void quitGame(){

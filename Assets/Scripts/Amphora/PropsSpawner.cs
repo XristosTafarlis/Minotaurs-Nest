@@ -25,11 +25,8 @@ public class PropsSpawner : MonoBehaviour{
 		size = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;
 		width = mazeRenderer.GetComponent<MazeRenderer>().size;
 		
-		//Moving player to starting position
-		player.transform.position = new Vector3 ( 0f, -0.4f, -size*width/2 - width);
-		
-		//Moving fence to starting position
-		fence.transform.position = new Vector3 ( -0f, 0f, -size*width/2 - width/2);
+		//Spawner
+		Invoke("Spawn", 0.1f);
 		
 		//Instantiating minotaur
 		Invoke("minotaurInstantiate", 1);
@@ -42,8 +39,12 @@ public class PropsSpawner : MonoBehaviour{
 	void minotaurInstantiate(){
 		Instantiate(minotaurPrefab, new Vector3( 0, 0, 0), transform.rotation);
 	}
-			
-	void Update(){
+	
+	void Spawn(){
+		//Moving player to starting position
+		player.transform.position = new Vector3 ( 0f, -0.4f, -size*width/2 - width);
 		
+		//Moving fence to starting position
+		fence.transform.position = new Vector3 ( -0f, 0f, -size*width/2 - width/2);
 	}
 }

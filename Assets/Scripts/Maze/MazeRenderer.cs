@@ -4,12 +4,19 @@ using UnityEngine;
 public class MazeRenderer : MonoBehaviour{
 
     [Range(4, 50)]
-    public int mazeSize = 10;
+    public int mazeSize;
 
     public float size = 1f;
 
     [SerializeField]
     private Transform wallPrefab = null;
+	
+	void Awake(){
+		if(Menu.mazeS > 3)
+			mazeSize = Menu.mazeS;
+		else
+			mazeSize = 10;
+	}
 
     void Start(){		
         var maze = MazeGenerator.Generate(mazeSize, mazeSize);
@@ -18,6 +25,8 @@ public class MazeRenderer : MonoBehaviour{
 		//NavMeshBuilder.ClearAllNavMeshes();
 		//NavMeshBuilder.BuildNavMesh();
     }
+
+	#region Maze Making Algrothem
 
     private void Draw(WallState[,] maze){
         for (int i = 0; i < mazeSize; ++i){
@@ -57,4 +66,7 @@ public class MazeRenderer : MonoBehaviour{
             }
         }
     }
+	
+	#endregion
+	
 }

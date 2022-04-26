@@ -4,7 +4,7 @@ public class PlayerLook : MonoBehaviour{
 	
 	[SerializeField] private Transform playerBody;
 	
-	public static float mouseSensitivity = 5f;
+	public static float mouseSensitivity = 2f;
 	
 	float xRotation = 0f;
 	

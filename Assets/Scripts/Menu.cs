@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class PauseMenu : MonoBehaviour{
+public class Menu : MonoBehaviour{
 	
 	[SerializeField]
 	private GameObject pauseMenuUI;
+	
+	[SerializeField]
+	private GameObject settingsMenuUI;
 	
 	public static bool gameIsPaused = false;
 	
@@ -33,7 +36,18 @@ public class PauseMenu : MonoBehaviour{
 	}
 	
 	public void settings(){
-		
+		pauseMenuUI.SetActive(false);
+		settingsMenuUI.SetActive(true);
+	}
+	
+	public void Back(){
+		settingsMenuUI.SetActive(false);
+		pauseMenuUI.SetActive(true);
+	}
+	
+	public void Sensitivity(float sens){
+		PlayerLook.mouseSensitivity = sens;
+		Debug.Log(sens);
 	}
 	
 	public void quitGame(){

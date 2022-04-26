@@ -1,11 +1,10 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour{
 	
-	[SerializeField] private float mouseSensitivity = 100f;
 	[SerializeField] private Transform playerBody;
+	
+	public static float mouseSensitivity = 5f;
 	
 	float xRotation = 0f;
 	
@@ -14,7 +13,7 @@ public class PlayerLook : MonoBehaviour{
 	}
 
 	void Update(){
-		if(!PauseMenu.gameIsPaused){
+		if(!Menu.gameIsPaused){
 			float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
 			float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 			

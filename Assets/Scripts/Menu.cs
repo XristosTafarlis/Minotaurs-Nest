@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour{
 	public static bool gameIsPaused = false;
 	private bool inSettings = false;
 	
-	
+		
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			

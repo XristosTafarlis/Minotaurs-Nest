@@ -5,7 +5,7 @@ public class MazeRenderer : MonoBehaviour{
 
     [Range(4, 50)]
     public int mazeSize;
-
+	
     public float size = 1f;
 
     [SerializeField]
@@ -14,8 +14,6 @@ public class MazeRenderer : MonoBehaviour{
 	void Awake(){
 		if(Menu.mazeS > 3)
 			mazeSize = Menu.mazeS;
-		else
-			mazeSize = 10;
 	}
 
     void Start(){		

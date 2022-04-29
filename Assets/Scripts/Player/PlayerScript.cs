@@ -17,7 +17,6 @@ public class PlayerScript : MonoBehaviour{
 			Destroy(other.gameObject, 1f);
 			amphorasNeeded -= 1;
 			amphorasPicked += 1;
-			Debug.Log(amphorasPicked);
 		}
 	}
 }

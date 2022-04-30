@@ -14,7 +14,7 @@ public class PropsSpawner : MonoBehaviour{
 	private Transform fence = null;
 	
 	[SerializeField]
-	private Transform minotaurPrefab = null;
+	private GameObject minotaur = null;
 	
 	private int size;
 	private float width;
@@ -29,15 +29,15 @@ public class PropsSpawner : MonoBehaviour{
 		Invoke("Spawn", 0.1f);
 		
 		//Instantiating minotaur
-		Invoke("minotaurInstantiate", 1);
+		Invoke("minotaurActivate", 1);
 		
 		for(int i = 0; i < numberOfAmphoras; i++){
 			Instantiate(amphora, new Vector3( Random.Range( -(size/2), size/2 ) * width, -1f, Random.Range( -(size/2) , size/2 ) * width), transform.rotation);
 		}
     }
 	
-	void minotaurInstantiate(){
-		Instantiate(minotaurPrefab, new Vector3( 0, 0, 0), transform.rotation);
+	void minotaurActivate(){
+		minotaur.SetActive(true);
 	}
 	
 	void Spawn(){

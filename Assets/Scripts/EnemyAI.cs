@@ -1,47 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour{
 	private NavMeshAgent agent;
-
-	[SerializeField] private Transform player;
 	
-	public Transform mazeRenderer;
-	private int mazeSize;		//Refference to maze size
-	private float width;		//Refference to wall width
+	[Header("Transforms")]
+	[SerializeField] Transform player;
+	[SerializeField] Transform mazeRenderer;
+	
+	int mazeSize;		//Refference to maze size
+	float width;		//Refference to wall width
 
-	[SerializeField] private LayerMask playerMask;
-	[SerializeField] private LayerMask obstacleMask;
-
-	[SerializeField] private float health;
+	[Header("Layers")]
+	[SerializeField] LayerMask playerMask;
+	[SerializeField] LayerMask obstacleMask;
 
 	//Patroling
-	[SerializeField] private Vector3 walkPoint;
+	[Header("Patroling")]
+	[SerializeField] Vector3 walkPoint;
 	bool walkPointSet;
-
+	
+	[Space(10)]
+	[SerializeField] float health;
+	
 	//Attacking
-	[SerializeField] private float timeBetweenAttacks;
+	[Header("Attacking")]
+	[SerializeField] float timeBetweenAttacks;
 	bool alreadyAttacked;
-
+	
 	//States
-	[SerializeField] private float sightRange;
-	[SerializeField] private float attackRange;
+	[Header("States")]
+	[SerializeField] float sightRange;
+	[SerializeField] float attackRange;
 	
-	[SerializeField]
-	private bool playerInSightRange;
+	[SerializeField] bool playerInSightRange;	
+	[SerializeField] bool playerInAttackRange;
 	
-	[SerializeField]
-	private bool playerInAttackRange;
+	[SerializeField] bool hitWall;
 	
-	[SerializeField]
-	private bool hitWall;
+	[Space(20)]
+	[Range(0.5f, 5f)]
+	[SerializeField] float smoothLookSpeed = 2f;
+	Coroutine LookCoroutine;
 	
 	private void Awake(){
-        player = GameObject.Find("Player").transform;
-		mazeRenderer = GameObject.Find("MazeRenderer").transform;
         agent = this.GetComponent<NavMeshAgent>();
 		mazeSize = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;		//Maze size
-		width = mazeRenderer.GetComponent<MazeRenderer>().size;			//Wall width
+		width = mazeRenderer.GetComponent<MazeRenderer>().size;				//Wall width
 
 	}
 	
@@ -76,6 +83,31 @@ public class EnemyAI : MonoBehaviour{
 			}
 		}
 	}
+	
+	#region Minotaur Look At Player
+	public void StartRotating(){
+		if (LookCoroutine != null){
+			StopCoroutine(LookCoroutine);
+		}
+
+		LookCoroutine = StartCoroutine(LookAt());
+	}
+
+	private IEnumerator LookAt(){
+		Quaternion lookRotation = Quaternion.LookRotation(player.position - transform.position);
+
+		float timeBetweenAttacks = 0;
+
+		Quaternion initialRotation = transform.rotation;
+		while (timeBetweenAttacks < 1){
+			transform.rotation = Quaternion.Slerp(initialRotation, lookRotation, timeBetweenAttacks);
+			
+			timeBetweenAttacks += Time.deltaTime * smoothLookSpeed;
+
+			yield return null;
+		}
+	}	
+	#endregion
 	
 	#region Patrolling Code
  
@@ -112,10 +144,10 @@ public class EnemyAI : MonoBehaviour{
 	#region Attack Code
 
     private void AttackPlayer(){
+		
         //Make sure enemy doesn't move
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
+        //agent.SetDestination(transform.position);
+		agent.velocity = Vector3.zero;
 
         if (!alreadyAttacked){
 			

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour{
 	
-	[SerializeField] private Transform playerBody;
+	[SerializeField] Transform playerBody;
 	
 	public static float mouseSensitivity = 1f;
 	

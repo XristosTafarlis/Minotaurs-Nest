@@ -4,19 +4,20 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour{
-	private NavMeshAgent agent;
+	NavMeshAgent agent;
+	Animator anim;
+	
+	int mazeSize;		//Refference to maze size
+	float width;		//Refference to wall width
 	
 	[Header("Transforms")]
 	[SerializeField] Transform player;
 	[SerializeField] Transform mazeRenderer;
 	
-	int mazeSize;		//Refference to maze size
-	float width;		//Refference to wall width
-
 	[Header("Layers")]
 	[SerializeField] LayerMask playerMask;
 	[SerializeField] LayerMask obstacleMask;
-
+	
 	//Patroling
 	[Header("Patroling")]
 	[SerializeField] Vector3 walkPoint;
@@ -24,6 +25,8 @@ public class EnemyAI : MonoBehaviour{
 	
 	[Space(10)]
 	[SerializeField] float health;
+	[SerializeField] float chaseSpeed;
+	[SerializeField] float walkSpeed;
 	
 	//Attacking
 	[Header("Attacking")]
@@ -46,10 +49,15 @@ public class EnemyAI : MonoBehaviour{
 	Coroutine LookCoroutine;
 	
 	private void Awake(){
-        agent = this.GetComponent<NavMeshAgent>();
+		anim = GetComponentInChildren<Animator>();
+		agent = GetComponent<NavMeshAgent>();
 		mazeSize = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;		//Maze size
 		width = mazeRenderer.GetComponent<MazeRenderer>().size;				//Wall width
-
+	
+	}
+	
+	private void Start() {
+		agent.speed = walkSpeed;
 	}
 	
 	private void Update(){
@@ -112,6 +120,8 @@ public class EnemyAI : MonoBehaviour{
 	#region Patrolling Code
  
     private void Patroling(){
+		anim.SetBool("isRunning", false);
+		agent.speed = walkSpeed;
         if (!walkPointSet)
 			SearchWalkPoint();
 
@@ -135,46 +145,54 @@ public class EnemyAI : MonoBehaviour{
     }
 	
 	#endregion
-
-	private void ChasePlayer(){	
+	
+	#region Chase Code
+	
+	private void ChasePlayer(){
+		anim.SetBool("isRunning", true);
+		agent.speed = chaseSpeed;
 		walkPoint = player.position;		//Making last seen position of player the walk point
 		agent.SetDestination(walkPoint);
 	}
-
-	#region Attack Code
-
-    private void AttackPlayer(){
-		
-        //Make sure enemy doesn't move
-        //agent.SetDestination(transform.position);
-		agent.velocity = Vector3.zero;
-
-        if (!alreadyAttacked){
-			
-            ///Attack code here
-            Debug.Log("Pew paw bam");
-            ///End of attack code
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
-    }
-    private void ResetAttack(){
-        alreadyAttacked = false;
-    }
-
-    public void TakeDamage(int damage){
-        health -= damage;
-
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-	
-    private void DestroyEnemy(){
-        Destroy(gameObject);
-    }
 	
 	#endregion
-
+	
+	#region Attack Code
+	
+	private void AttackPlayer(){
+		
+		//Make sure enemy doesn't move
+		//agent.SetDestination(transform.position);
+		agent.velocity = Vector3.zero;
+	
+		if (!alreadyAttacked){
+			
+			///Attack code here
+			Debug.Log("Pew paw bam");
+			anim.SetTrigger("Attack");
+			
+			///End of attack code
+	
+			alreadyAttacked = true;
+			Invoke("ResetAttack", timeBetweenAttacks);
+		}
+	}
+	private void ResetAttack(){
+		alreadyAttacked = false;
+	}
+	
+	public void TakeDamage(int damage){
+		health -= damage;
+	
+		if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+	}
+	
+	private void DestroyEnemy(){
+		Destroy(gameObject);
+	}
+	
+	#endregion
+	
 	private void OnDrawGizmosSelected(){
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position, attackRange);

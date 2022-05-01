@@ -2,21 +2,22 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour{
 	
+	[SerializeField] GameObject swordHolder;
+	public int amphorasPicked = 0;
 	public int amphorasNeeded = 4;
 	
-	[HideInInspector] 
-	public int amphorasPicked = 0;
-
-	void Update(){
-		
-	}
-	
 	private void OnTriggerEnter(Collider other) {
+		
 		if(other.gameObject.CompareTag("Amphora")){
+			amphorasPicked += 1;
 			other.GetComponent<CapsuleCollider>().enabled = false;
 			Destroy(other.gameObject, 1f);
-			amphorasNeeded -= 1;
-			amphorasPicked += 1;
+			
+			if(amphorasPicked >= amphorasNeeded){
+				//GetComponentInChildren<SwordController>().enabled = true;
+				swordHolder.SetActive(true);
+				Debug.Log("Sword up");
+			}
 		}
 	}
 }

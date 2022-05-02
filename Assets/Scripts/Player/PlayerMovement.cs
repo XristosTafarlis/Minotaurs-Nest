@@ -16,7 +16,11 @@ public class PlayerMovement : MonoBehaviour{
 	[SerializeField] private LayerMask groundMask;
 
 	Vector3 velocity;
-	bool isGrounded;
+	[HideInInspector] public bool isGrounded;
+	
+	//Variables for reference
+	public static bool isWalking;
+	public static bool isRuning;
 
 	void Update(){
 		//Checking if player is grounded
@@ -27,6 +31,7 @@ public class PlayerMovement : MonoBehaviour{
 			velocity.y = -2f;
 		}
 		
+		//Input
 		float x = Input.GetAxis("Horizontal");
 		float z = Input.GetAxis("Vertical");
 		
@@ -45,6 +50,23 @@ public class PlayerMovement : MonoBehaviour{
 		if(Input.GetButton("Jump") && isGrounded){
 			velocity.y = Mathf.Sqrt(jumpHeight * -1f * gravity);
 		}
+		
+		#region Running and Walking checks
+		
+		//Checking if player is on ground and moving
+		if( (Mathf.Abs(GetComponent<CharacterController>().velocity.x) > 0.5f || Mathf.Abs(GetComponent<CharacterController>().velocity.z) > 0.5f ) && isGrounded){
+			isWalking = true;
+			isRuning = false;
+			if(Input.GetButton("Fire3")){
+				isWalking = false;
+				isRuning = true;
+			}
+		}else{
+			isWalking = false;
+			isRuning = false;
+		}
+		
+		#endregion
 		
 		velocity.y += gravity * Time.deltaTime;
 		

@@ -28,6 +28,14 @@ public class EnemyAI : MonoBehaviour{
 	[SerializeField] float chaseSpeed;
 	[SerializeField] float walkSpeed;
 	
+	[Header("Damage Properties")]
+	[SerializeField] [Range( 10, 100)] int minotaurDamage;
+	[SerializeField] float AOERadius = 0.35f;
+	[SerializeField] Transform AOEPoint;
+	[SerializeField] LayerMask playerLayer;
+	[SerializeField] float hittDelay;
+	float attackCooldown;
+	
 	//Attacking
 	[Header("Attacking")]
 	[SerializeField] float timeBetweenAttacks;
@@ -152,7 +160,8 @@ public class EnemyAI : MonoBehaviour{
 		anim.SetBool("isRunning", true);
 		agent.speed = chaseSpeed;
 		walkPoint = player.position;		//Making last seen position of player the walk point
-		agent.SetDestination(walkPoint);
+		if(agent.enabled == true)
+			agent.SetDestination(walkPoint);
 	}
 	
 	#endregion
@@ -162,29 +171,46 @@ public class EnemyAI : MonoBehaviour{
 	private void AttackPlayer(){
 		
 		//Make sure enemy doesn't move
-		//agent.SetDestination(transform.position);
-		agent.velocity = Vector3.zero;
+		agent.SetDestination(transform.position);
+		//agent.velocity = Vector3.zero;
 	
 		if (!alreadyAttacked){
-			
-			///Attack code here
-			Debug.Log("Pew paw bam");
 			anim.SetTrigger("Attack");
 			
-			///End of attack code
-	
+			attackCooldown = Time.time + hittDelay;
+			
+			Collider[] playerCollider = Physics.OverlapSphere(AOEPoint.position, AOERadius, playerLayer);
+			
+			foreach(var Col in playerCollider){
+				if(Col != null){
+					playerCollider[0].GetComponent<PlayerScript>().PlayerTakeDamage(minotaurDamage);	//Damage the player
+					Debug.Log("Player hitt");
+				}
+			}
+			
 			alreadyAttacked = true;
 			Invoke("ResetAttack", timeBetweenAttacks);
 		}
 	}
+	
 	private void ResetAttack(){
 		alreadyAttacked = false;
 	}
 	
 	public void TakeDamage(int damage){
+		
+		agent.SetDestination(transform.position);
+		//agent.velocity = Vector3.zero;
+		
 		health -= damage;
-	
-		if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+		if (health <= 0){
+			
+			agent.enabled = false;
+			Invoke("DestroyEnemy", 2f);
+			anim.SetTrigger("isDead");
+			return;
+		}
+		anim.SetTrigger("isAttacked");
 	}
 	
 	private void DestroyEnemy(){
@@ -199,5 +225,8 @@ public class EnemyAI : MonoBehaviour{
 		
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(transform.position, sightRange);
+		
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(AOEPoint.position, AOERadius);
     }
 }

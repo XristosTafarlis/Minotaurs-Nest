@@ -8,9 +8,10 @@ public class SwordController : MonoBehaviour{
 	[SerializeField] Transform AOEPoint;
 	
 	[Header("Damage Properties")]
+	[SerializeField] [Range( 10, 50)] int swordDamage;
 	[SerializeField] float fireDelay;
 	float attackCooldown;
-	[SerializeField] float AOERadious = 0.5f;
+	[SerializeField] float AOERadius = 0.5f;
 	[SerializeField] LayerMask enemyLayer;
 	
 	void Start(){
@@ -28,21 +29,18 @@ public class SwordController : MonoBehaviour{
 		attackCooldown = Time.time + fireDelay;
 		GetComponent<Animator>().SetTrigger("Attack");	//Play attack animation
 		
-		Collider[] minotaurCollider = Physics.OverlapSphere(AOEPoint.position, AOERadious, enemyLayer);	//Cast AOE sphere to get minotaur's collider
+		Collider[] minotaurCollider = Physics.OverlapSphere(AOEPoint.position, AOERadius, enemyLayer);	//Cast AOE sphere to get minotaur's collider
 		
 		foreach(var Col in minotaurCollider){
 			if(Col != null){
-				Debug.Log(minotaurCollider[0].name);
-				minotaurCollider[0].GetComponent<EnemyAI>().TakeDamage(30);
+				minotaurCollider[0].GetComponent<EnemyAI>().TakeDamage(swordDamage);	//Damage the minotaur
 			}
 		}
-		
 		
 	}
 
 	private void OnDrawGizmos() {
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(AOEPoint.position, AOERadious);
+		Gizmos.DrawWireSphere(AOEPoint.position, AOERadius);	//Radius of sword damage
 	}
-	
 }

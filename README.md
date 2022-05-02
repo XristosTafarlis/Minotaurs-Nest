@@ -4,5 +4,5 @@ Random maze every time you run the game.
 Player starts outside the maze.  
 Player tries to collect amphoras.  
 Minotaur roamning arround the maze.  
-Goal is to find him when you have collected the 5 amphoras.  
+Goal is to find him when you have collected the amphoras.  
 Kill the minotaur and with the help of a rope you had all along find your way out of the maze.

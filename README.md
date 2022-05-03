@@ -1,9 +1,9 @@
 Cotnrols :  
 WASD -> movement  
-Space -> Jump
-Left Shift -> Run
+Space -> Jump  
+Left Shift -> Run  
 Left Ctrl -> Crouch  
-Mouse 1 -> Attack
+Mouse 1 -> Attack  
 Mouse 2 -> Cammera Zoom  
 
 

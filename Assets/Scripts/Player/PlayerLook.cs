@@ -1,11 +1,8 @@
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour{
-	
 	[SerializeField] Transform playerBody;
-	
 	public static float mouseSensitivity = 1f;
-	
 	float xRotation = 0f;
 	
 	void Start(){
@@ -23,5 +20,15 @@ public class PlayerLook : MonoBehaviour{
 			transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 			playerBody.Rotate(Vector3.up * mouseX);
 		}
+		
+		if(Input.GetMouseButton(1)){
+			ZoomIn();
+		}if(Input.GetMouseButtonUp(1)){
+			GetComponent<Camera>().fieldOfView = 60f;	//Zoom out
+		}
+	}
+	
+	void ZoomIn(){
+		GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, 25, 0.1f);
 	}
 }

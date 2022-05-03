@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour{
+	//Refferences to minotaur's components
 	NavMeshAgent agent;
 	Animator anim;
 	
 	int mazeSize;		//Refference to maze size
 	float width;		//Refference to wall width
 	
-	[Header("Transforms")]
+	[Header("Refferences")]
 	[SerializeField] Transform player;
 	[SerializeField] Transform mazeRenderer;
 	
@@ -19,26 +20,22 @@ public class EnemyAI : MonoBehaviour{
 	[SerializeField] LayerMask obstacleMask;
 	
 	//Patroling
-	[Header("Patroling")]
-	[SerializeField] Vector3 walkPoint;
+	Vector3 walkPoint;
 	bool walkPointSet;
 	
-	[Space(10)]
+	[Header("Minotar's stats")]
 	[SerializeField] float health;
 	[SerializeField] float chaseSpeed;
 	[SerializeField] float walkSpeed;
-	
-	[Header("Damage Properties")]
-	[SerializeField] [Range( 10, 100)] int minotaurDamage;
-	[SerializeField] float AOERadius = 0.35f;
-	[SerializeField] Transform AOEPoint;
-	[SerializeField] LayerMask playerLayer;
-	[SerializeField] float hittDelay;
-	float attackCooldown;
+	[SerializeField] [Range(0.5f, 10f)] float smoothLookSpeed = 2f;
 	
 	//Attacking
-	[Header("Attacking")]
+	[Header("Attack Properties")]
+	[SerializeField] [Range( 10, 100)] int minotaurDamage;
+	[SerializeField] float attackRadius = 0.35f;
 	[SerializeField] float timeBetweenAttacks;
+	[SerializeField] Transform attackPoint;
+	[SerializeField] LayerMask playerLayer;
 	bool alreadyAttacked;
 	
 	//States
@@ -46,14 +43,13 @@ public class EnemyAI : MonoBehaviour{
 	[SerializeField] float sightRange;
 	[SerializeField] float attackRange;
 	
+	[Header("Debug States <View only> ")]
 	[SerializeField] bool playerInSightRange;	
 	[SerializeField] bool playerInAttackRange;
-	
-	[SerializeField] bool hitWall;
+	[SerializeField] bool minotaurSeesWall;
 	
 	[Space(20)]
-	[Range(0.5f, 5f)]
-	[SerializeField] float smoothLookSpeed = 2f;
+	
 	Coroutine LookCoroutine;
 	
 	private void Awake(){
@@ -76,7 +72,7 @@ public class EnemyAI : MonoBehaviour{
 		Vector3 directionToTarget = (player.position - transform.position).normalized;				//Direction from minotaur to player
 		float distanseToPlayer = Vector3.Distance (player.position, transform.position);			//Distance between minotaur and player
 		
-		hitWall = Physics.Raycast(transform.position, directionToTarget, distanseToPlayer, obstacleMask);	//Check if there is a wall between player and minotaur
+		minotaurSeesWall = Physics.Raycast(transform.position, directionToTarget, distanseToPlayer, obstacleMask);	//Check if there is a wall between player and minotaur
 		Debug.DrawRay(transform.position, directionToTarget * distanseToPlayer, Color.blue);		//Visualization of RayCast
 		
 		if (!playerInSightRange && !playerInAttackRange){		//If player outside range, patrol
@@ -84,7 +80,7 @@ public class EnemyAI : MonoBehaviour{
 		}
 		
 		if (playerInSightRange && !playerInAttackRange){		//If player in range
-			if(!hitWall){
+			if(!minotaurSeesWall){
 				ChasePlayer();									//If minotaur sees player, chase 
 			}else{												//Else patrol
 				Patroling();
@@ -92,7 +88,7 @@ public class EnemyAI : MonoBehaviour{
 		}
 		
 		if (playerInAttackRange && playerInSightRange){		//If in range to attack
-			if(!hitWall){
+			if(!minotaurSeesWall){
 				AttackPlayer();								//If minotaur sees player, attack
 			}else{											//Else patrol
 				Patroling();
@@ -133,8 +129,11 @@ public class EnemyAI : MonoBehaviour{
         if (!walkPointSet)
 			SearchWalkPoint();
 
-        if (walkPointSet)
-			agent.SetDestination(walkPoint);
+        if (walkPointSet){
+			if(agent.isActiveAndEnabled){
+				agent.SetDestination(walkPoint);
+			}
+		}
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
@@ -177,10 +176,7 @@ public class EnemyAI : MonoBehaviour{
 		if (!alreadyAttacked){
 			anim.SetTrigger("Attack");
 			
-			attackCooldown = Time.time + hittDelay;
-			
-			Collider[] playerCollider = Physics.OverlapSphere(AOEPoint.position, AOERadius, playerLayer);
-			
+			Collider[] playerCollider = Physics.OverlapSphere(attackPoint.position, attackRadius, playerLayer);	//Getting the colliders inside damage range
 			foreach(var Col in playerCollider){
 				if(Col != null){
 					playerCollider[0].GetComponent<PlayerScript>().PlayerTakeDamage(minotaurDamage);	//Damage the player
@@ -201,6 +197,11 @@ public class EnemyAI : MonoBehaviour{
 		
 		agent.SetDestination(transform.position);
 		//agent.velocity = Vector3.zero;
+		
+		//Damage sound
+		gameObject.GetComponent<AudioSource>().pitch = Random.Range(0.8f, 1.1f);
+		gameObject.GetComponent<AudioSource>().volume = Random.Range(0.4f, 0.5f);
+		gameObject.GetComponent<AudioSource>().Play();
 		
 		health -= damage;
 		if (health <= 0){
@@ -227,6 +228,6 @@ public class EnemyAI : MonoBehaviour{
 		Gizmos.DrawWireSphere(transform.position, sightRange);
 		
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(AOEPoint.position, AOERadius);
+		Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 }

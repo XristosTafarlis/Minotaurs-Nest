@@ -2,21 +2,34 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour{
-	
+	[Header("Refferences")]
 	[SerializeField] GameObject swordHolder;
-	[HideInInspector] public int amphorasPicked = 0;
+	[SerializeField] AudioSource damageAudioSouorce;
+	
+	[Header("Variables")]
+	[SerializeField] int playerHealth = 100;
 	public int amphorasNeeded = 4;
 	
-	[SerializeField] int playerHealth = 100;
-
+	[HideInInspector] public int amphorasPicked = 0;
+	
+	void Start(){
+		
+	}
+	
 	void Update() {
 		if (playerHealth <= 0 ){
 			Debug.Log("Player is Dead");
 			Invoke("SceneRestart", 2f);
+			gameObject.GetComponent<PlayerMovement>().enabled = false;
 		}
 	}
 
 	public void PlayerTakeDamage(int damage){
+		
+		damageAudioSouorce.pitch = Random.Range(0.8f, 1.1f);
+		damageAudioSouorce.volume = Random.Range(0.4f, 0.5f);
+		damageAudioSouorce.Play();
+		
 		playerHealth -= damage;
 	}
 	

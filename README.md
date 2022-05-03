@@ -1,3 +1,12 @@
+Cotnrols :  
+WASD -> movement  
+Space -> Jump
+Left Shift -> Run
+Left Ctrl -> Crouch  
+Mouse 1 -> Attack
+Mouse 2 -> Cammera Zoom  
+
+
 Game's consept:
 
 Random maze every time you run the game.  

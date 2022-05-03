@@ -138,8 +138,8 @@ public static class MazeGenerator{
         }
 		
 		//Creating start and finish
-		maze[ ( width / 2 ) , 0] = WallState.UP;
-		maze[ ( width / 2 ) , height - 1 ] = WallState.DOWN;
+		maze[ ( width / 2 ) , 0] = WallState.RIGHT | WallState.LEFT | WallState.UP;
+		maze[ ( width / 2 ) , height - 1 ] = WallState.RIGHT | WallState.LEFT | WallState.DOWN;
 		
 		return ApplyRecursiveBacktracker(maze, width, height);
         

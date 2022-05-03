@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour{
 	[SerializeField] AudioSource damageAudioSouorce;
 	
 	[Header("Variables")]
-	[SerializeField] int playerHealth = 100;
+	public int playerHealth = 100;
 	public int amphorasNeeded = 4;
 	
 	[HideInInspector] public int amphorasPicked = 0;
@@ -19,8 +19,9 @@ public class PlayerScript : MonoBehaviour{
 	void Update() {
 		if (playerHealth <= 0 ){
 			Debug.Log("Player is Dead");
-			Invoke("SceneRestart", 2f);
+			Invoke("GameOver", 2f);
 			gameObject.GetComponent<PlayerMovement>().enabled = false;
+			gameObject.GetComponent<CharacterController>().enabled = false;
 		}
 	}
 
@@ -46,7 +47,7 @@ public class PlayerScript : MonoBehaviour{
 		}
 	}
 	
-	void SceneRestart(){
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	void GameOver(){
+		SceneManager.LoadScene(1);
 	}
 }

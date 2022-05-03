@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour{
 	[Header("Refferences")]
 	[SerializeField] Transform player;
 	[SerializeField] Transform mazeRenderer;
+	[SerializeField] AudioSource playerChaseSound;
 	
 	[Header("Layers")]
 	[SerializeField] LayerMask playerMask;
@@ -156,6 +157,10 @@ public class EnemyAI : MonoBehaviour{
 	#region Chase Code
 	
 	private void ChasePlayer(){
+		
+		if(!playerChaseSound.isPlaying)
+			playerChaseSound.Play();
+		
 		anim.SetBool("isRunning", true);
 		agent.speed = chaseSpeed;
 		walkPoint = player.position;		//Making last seen position of player the walk point

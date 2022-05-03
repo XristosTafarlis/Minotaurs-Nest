@@ -80,7 +80,7 @@ public class Menu : MonoBehaviour{
 		gameIsPaused = false;						//Unpause
 		Time.timeScale = 1f;						//Unstuck
 		Cursor.lockState = CursorLockMode.None;		//Free mouse
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		SceneManager.LoadScene(0);
 	}
 	
 	public void quitGame(){

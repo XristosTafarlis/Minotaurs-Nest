@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwordController : MonoBehaviour{
 	
 	[Header("Refferences")]
+	[SerializeField] GameObject player;
 	[SerializeField] GameObject sword;
 	[SerializeField] Transform damagePoint;
 	
@@ -22,6 +23,11 @@ public class SwordController : MonoBehaviour{
 		if (Input.GetMouseButton(0) && Time.time > attackCooldown){
 			Attack();
 		}
+		
+		if(player.GetComponent<PlayerScript>().playerHealth <= 0){
+			this.enabled = false;
+		}
+		
 	}
 	
 	void Attack(){		

@@ -1,4 +1,4 @@
-**Cotnrols : **                   **Game's consept:**  
+**Cotnrols                        Game's consept:**  
 ```
 WASD -> movement                  Random maze every time you run the game.  
 Space -> Jump                     Player starts outside the maze.  

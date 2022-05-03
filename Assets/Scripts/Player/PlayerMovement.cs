@@ -58,12 +58,12 @@ public class PlayerMovement : MonoBehaviour{
 		
 		//Crouching with Left Control
 		
-		if(Input.GetKeyDown(KeyCode.LeftControl)){
+		if(Input.GetKeyDown(KeyCode.LeftAlt)){
 			finalSpeed = crouchSpeed;
 			transform.localScale = new Vector3(0.6f, 0.3f, 0.6f);
 		}
 		
-		if(Input.GetKeyUp(KeyCode.LeftControl)){
+		if(Input.GetKeyUp(KeyCode.LeftAlt)){
 			finalSpeed = runSpeed;
 			transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 		}

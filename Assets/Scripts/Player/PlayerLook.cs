@@ -21,7 +21,7 @@ public class PlayerLook : MonoBehaviour{
 	}
 	
 	void ZoomIn(){
-		GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, 30, 0.035f);
+		GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, 30, 0.04f);
 	}
 	
 	void ZoomOut(){

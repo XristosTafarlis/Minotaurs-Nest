@@ -661,7 +661,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266104877}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec83c4b43a2833148a3f901ef935b52b, type: 3}
   m_Name: 
@@ -6276,7 +6276,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 37e13e4e34454ca42ac15d3d246bf846, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b95fd4bf0ae4aea43ab2ce09e08abe6e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -22953,7 +22953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 554291009}
   mazeRenderer: {fileID: 266104879}
-  playerChaseSound: {fileID: 1691977501}
+  playerChaseSoundRefference: {fileID: 1691977501}
   playerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -23021,7 +23021,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7f71034a4cf5bea408d5f7eec68c504a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 639528cc12a3949428b7b1c4571bf9c9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

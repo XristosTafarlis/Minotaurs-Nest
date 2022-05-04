@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour{
 	[Header("Refferences")]
 	[SerializeField] Transform player;
 	[SerializeField] Transform mazeRenderer;
-	[SerializeField] AudioSource playerChaseSound;
+	[SerializeField] AudioSource playerChaseSoundRefference;
 	
 	[Header("Layers")]
 	[SerializeField] LayerMask playerMask;
@@ -158,8 +158,8 @@ public class EnemyAI : MonoBehaviour{
 	
 	private void ChasePlayer(){
 		
-		if(!playerChaseSound.isPlaying)
-			playerChaseSound.Play();
+		if(!playerChaseSoundRefference.isPlaying)
+			playerChaseSoundRefference.Play();
 		
 		anim.SetBool("isRunning", true);
 		agent.speed = chaseSpeed;
@@ -197,6 +197,10 @@ public class EnemyAI : MonoBehaviour{
 	private void ResetAttack(){
 		alreadyAttacked = false;
 	}
+	
+	#endregion
+	
+	#region Get Attacked
 	
 	public void TakeDamage(int damage){
 		

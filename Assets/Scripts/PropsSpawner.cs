@@ -16,15 +16,18 @@ public class PropsSpawner : MonoBehaviour{
 	int size;
 	float width;
 	
-	void Start(){
-		size = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;
-		width = mazeRenderer.GetComponent<MazeRenderer>().size;
+	void Awake() {
 		
 		//Spawner
 		Invoke("Spawn", 0.1f);
 		
 		//Spawn minotaur
 		Invoke("minotaurActivate", 1);
+	}
+	
+	void Start(){
+		size = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;
+		width = mazeRenderer.GetComponent<MazeRenderer>().size;
 		
 		for(int i = 0; i < numberOfAmphoras; i++){
 			Instantiate(amphora, new Vector3( Random.Range( -(size/2), size/2 ) * width, -1f, Random.Range( -(size/2) , size/2 ) * width), transform.rotation);
@@ -39,13 +42,17 @@ public class PropsSpawner : MonoBehaviour{
 	
 	void RescaleGroundPlane(){
 		//Rescale ground plane for better performace
-		groundPlane.position = new Vector3( -width/2, -1.6f, -width/2);
+		if(size % 2 == 0)
+			groundPlane.position = new Vector3( -width/2, -1.6f, -width/2);
+		else
+			groundPlane.position = new Vector3( 0f, -1.6f, 0f);
+			
 		groundPlane.localScale = new Vector3(size * width, 1f, size * width);
 	}
 	
 	void Spawn(){
 		//Moving player to starting position
-		player.transform.position = new Vector3 ( 0f, -0.4f, -size*width/2 - width);
+		player.transform.position = new Vector3 ( 0f, -0.4f, -size*width/2 - width/2);
 		
 		//Moving guard to starting position
 		if(size % 2 == 0)

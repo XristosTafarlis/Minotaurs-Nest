@@ -93,12 +93,12 @@ public class PlayerMovement : MonoBehaviour{
 			finalSpeed = walkSpeed;
 		
 		//Crouching with Left Alt
-		if(Input.GetKeyDown(KeyCode.LeftAlt)){
+		if(Input.GetKeyDown(KeyCode.LeftControl)){
 			finalSpeed = crouchSpeed;
 			transform.localScale = new Vector3(0.6f, 0.3f, 0.6f);
 		}
 		
-		if(Input.GetKeyUp(KeyCode.LeftAlt)){
+		if(Input.GetKeyUp(KeyCode.LeftControl)){
 			finalSpeed = runSpeed;
 			transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 		}	

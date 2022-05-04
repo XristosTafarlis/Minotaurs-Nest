@@ -11,11 +11,7 @@ public class PlayerScript : MonoBehaviour{
 	public int amphorasNeeded = 4;
 	
 	[HideInInspector] public int amphorasPicked = 0;
-	
-	void Start(){
 		
-	}
-	
 	void Update() {
 		if (playerHealth <= 0 ){
 			Debug.Log("Player is Dead");

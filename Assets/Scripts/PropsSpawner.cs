@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class PropsSpawner : MonoBehaviour{
 	
+	[Header("Refferences")]
 	[SerializeField] GameObject amphora;
 	[SerializeField] GameObject mazeRenderer;
+	[SerializeField] Transform groundPlane;
 	[SerializeField] Transform player = null;
 	[SerializeField] Transform guard = null;
 	[SerializeField] GameObject minotaur = null;
 	
+	[Space(20)]
+	[SerializeField] int numberOfAmphoras = 12;
+	
 	int size;
 	float width;
-	
-	int numberOfAmphoras = 12;
 	
 	void Start(){
 		size = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;
@@ -26,10 +29,18 @@ public class PropsSpawner : MonoBehaviour{
 		for(int i = 0; i < numberOfAmphoras; i++){
 			Instantiate(amphora, new Vector3( Random.Range( -(size/2), size/2 ) * width, -1f, Random.Range( -(size/2) , size/2 ) * width), transform.rotation);
 		}
+		
+		RescaleGroundPlane();
     }
 	
 	void minotaurActivate(){
 		minotaur.SetActive(true);
+	}
+	
+	void RescaleGroundPlane(){
+		//Rescale ground plane for better performace
+		groundPlane.position = new Vector3( -width/2, -1.6f, -width/2);
+		groundPlane.localScale = new Vector3(size * width, 1f, size * width);
 	}
 	
 	void Spawn(){

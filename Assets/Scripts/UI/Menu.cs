@@ -4,20 +4,10 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour{
 	
-	[SerializeField]
-	private GameObject pauseMenuUI;
-	
-	[SerializeField]
-	private GameObject settingsMenuUI;
-	
-	[SerializeField]
-	private GameObject mazeSizeInputField;
-	
-	[SerializeField]
-	private GameObject mazeRendererReference;
-	
-	[HideInInspector]
-	public static int mazeS;
+	[SerializeField] private GameObject pauseMenuUI;
+	[SerializeField] private GameObject settingsMenuUI;
+	[SerializeField] private GameObject mazeRendererReference;
+	[HideInInspector] public static int mazeS;
 	
 	public static bool gameIsPaused = false;
 	private bool inSettings = false;

@@ -1,12 +1,14 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class MainUI : MonoBehaviour{
+public class SettingsMenu : MonoBehaviour{
 	
+	[Header("Refferences")]
 	[SerializeField] GameObject player;
+	[SerializeField] Text amphorasTxt;
 	
-	[SerializeField] private Text amphorasTxt;
-	private int amphoras, maxAmphoras;
+	int amphoras;
+	int maxAmphoras;
 	
 	void Start(){
 		maxAmphoras = player.GetComponent<PlayerScript>().amphorasNeeded;

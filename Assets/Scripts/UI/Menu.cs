@@ -4,15 +4,20 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour{
 	
-	[SerializeField] private GameObject pauseMenuUI;
-	[SerializeField] private GameObject settingsMenuUI;
-	[SerializeField] private GameObject mazeRendererReference;
+	[SerializeField] GameObject pauseMenuUI;
+	[SerializeField] GameObject settingsMenuUI;
+	[SerializeField] GameObject mazeRendererReference;
+	[SerializeField] Slider[] sliders;
+	
 	[HideInInspector] public static int mazeS;
 	
 	public static bool gameIsPaused = false;
 	private bool inSettings = false;
 	
-		
+	void Awake() {
+		SliderSet(sliders);
+	}
+	
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			
@@ -26,6 +31,16 @@ public class Menu : MonoBehaviour{
 			}else{
 				Pause();
 			}
+		}
+	}
+
+	void SliderSet(Slider[] slider){
+		foreach(Slider sld in sliders){
+		float originalValue = sld.value;
+		
+		sld.value = sld.maxValue;
+		
+		sld.value = originalValue;
 		}
 	}
 

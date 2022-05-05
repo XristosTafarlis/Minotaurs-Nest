@@ -21,7 +21,7 @@ public class PlayerLook : MonoBehaviour{
 	}
 	
 	void ZoomIn(){
-		GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, 30, 0.04f);
+		GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, 30, 0.045f);
 	}
 	
 	void ZoomOut(){
@@ -30,8 +30,8 @@ public class PlayerLook : MonoBehaviour{
 	
 	void Look(){
 		if(!Menu.gameIsPaused){
-		float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-		float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+		float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity / 2;
+		float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity / 2;
 			
 		xRotation -= mouseY;
 		xRotation = Mathf.Clamp(xRotation, -90f, 90f);

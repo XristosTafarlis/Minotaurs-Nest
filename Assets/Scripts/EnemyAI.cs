@@ -58,7 +58,6 @@ public class EnemyAI : MonoBehaviour{
 		agent = GetComponent<NavMeshAgent>();
 		mazeSize = mazeRenderer.GetComponent<MazeRenderer>().mazeSize;		//Maze size
 		width = mazeRenderer.GetComponent<MazeRenderer>().size;				//Wall width
-	
 	}
 	
 	private void Start() {

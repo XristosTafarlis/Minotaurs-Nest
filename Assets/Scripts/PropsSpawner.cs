@@ -52,7 +52,7 @@ public class PropsSpawner : MonoBehaviour{
 	
 	void Spawn(){
 		//Moving player to starting position
-		player.transform.position = new Vector3 ( 0f, -0.4f, -size*width/2 - width/2);
+		player.transform.position = new Vector3 ( 0f, -0.4f, -size*width/2 - width/2 - 1);
 		
 		//Moving guard to starting position
 		if(size % 2 == 0)

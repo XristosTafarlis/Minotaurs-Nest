@@ -1,10 +1,20 @@
 ```
-**Cotnrols                        Game's consept:**  
+Cotnrols  
   
-WASD -> movement                  Random maze every time you run the game.  
-Space -> Jump                     Player starts outside the maze.  
-Left Shift -> Run                 Player tries to collect amphoras.  
-Left Ctrl -> Crouch               Minotaur roamning arround the maze.  
-Mouse 1 -> Attack                 Goal is to find him when you have collected the amphoras.  
-Mouse 2 -> Cammera Zoom           Kill the minotaur and with the help of a rope you had all along find your way out of the maze.
+WASD -> movement  
+Space -> Jump  
+Left Shift -> Run  
+Left Ctrl -> Crouch  
+Mouse 1 -> Attack  
+Mouse 2 -> Cammera Zoom  
+```
+```
+Game's consept:  
+  
+Random maze every time you run the game.  
+Player starts outside the maze. 
+Player tries to collect amphoras.  
+Minotaur roamning arround the maze.  
+Goal is to find him when you have collected the amphoras and kill him.  
+With the help of a rope you had all along find your way out of the maze.
 ```

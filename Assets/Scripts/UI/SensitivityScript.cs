@@ -12,6 +12,6 @@ public class SensitivityScript : MonoBehaviour{
 	}
 
 	public void textUpdate(float value){
-		sensitivityText.text = ("wea");
+		//sensitivityText.text = ("wea");
 	}
 }

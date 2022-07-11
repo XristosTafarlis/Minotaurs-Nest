@@ -123,33 +123,38 @@ public class EnemyAI : MonoBehaviour{
 	
 	#region Patrolling Code
  
-    private void Patroling(){
+	private void Patroling(){
 		anim.SetBool("isRunning", false);
 		agent.speed = walkSpeed;
-        if (!walkPointSet)
-			SearchWalkPoint();
 
-        if (walkPointSet){
+		if(playerChaseSoundRefference.isPlaying){
+			StartCoroutine(ChaseSoundFadeOut(playerChaseSoundRefference, 300));
+		}
+		
+		if (!walkPointSet)
+			SearchWalkPoint();
+		
+		if (walkPointSet){
 			if(agent.isActiveAndEnabled){
 				agent.SetDestination(walkPoint);
 			}
 		}
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+		Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
+		//Walkpoint reached
+		if (distanceToWalkPoint.magnitude < 1f)
 			walkPointSet = false;
-    }
+	}
 	
-    private void SearchWalkPoint(){
-        //Calculate random point in range
-        float randomX = Random.Range( -(mazeSize/2), mazeSize/2 ) * width;
-        float randomZ = Random.Range( -(mazeSize/2), mazeSize/2 ) * width;
+	private void SearchWalkPoint(){
+		//Calculate random point in range
+		float randomX = Random.Range( -(mazeSize/2), mazeSize/2 ) * width;
+		float randomZ = Random.Range( -(mazeSize/2), mazeSize/2 ) * width;
 
-        walkPoint = new Vector3( randomX, transform.position.y, randomZ);
+		walkPoint = new Vector3( randomX, transform.position.y, randomZ);
 		walkPointSet = true;
-    }
+	}
 	
 	#endregion
 	
@@ -157,8 +162,10 @@ public class EnemyAI : MonoBehaviour{
 	
 	private void ChasePlayer(){
 		
-		if(!playerChaseSoundRefference.isPlaying)
+		if(!playerChaseSoundRefference.isPlaying){
+			playerChaseSoundRefference.volume = 1;
 			playerChaseSoundRefference.Play();
+		}
 		
 		anim.SetBool("isRunning", true);
 		agent.speed = chaseSpeed;
@@ -227,6 +234,15 @@ public class EnemyAI : MonoBehaviour{
 	}
 	
 	#endregion
+
+	private IEnumerator ChaseSoundFadeOut(AudioSource audioSource, float FadeTime) {
+		float startVolume = audioSource.volume;
+		while (audioSource.volume > 0) {
+			audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+			yield return null;
+		}
+		audioSource.Stop();
+	}
 	
 	private void OnDrawGizmosSelected(){
 		Gizmos.color = Color.red;
@@ -237,5 +253,5 @@ public class EnemyAI : MonoBehaviour{
 		
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
-    }
+	}
 }

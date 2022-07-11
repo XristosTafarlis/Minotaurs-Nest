@@ -8,6 +8,10 @@ public class SwordController : MonoBehaviour{
 	[SerializeField] GameObject player;
 	[SerializeField] GameObject sword;
 	[SerializeField] Transform damagePoint;
+	[SerializeField] AudioClip[] sounds;
+	AudioSource source;
+	Animator animator;
+	int playerHealth;
 	
 	[Header("Damage Properties")]
 	[SerializeField] [Range( 10, 50)]  int swordDamage;
@@ -17,6 +21,9 @@ public class SwordController : MonoBehaviour{
 	float attackCooldown;
 	
 	void Start(){
+		source = GetComponent<AudioSource>();
+		animator = GetComponent<Animator>();
+		playerHealth = player.GetComponent<PlayerScript>().playerHealth;
 	}
 	
 	void Update() {
@@ -24,7 +31,7 @@ public class SwordController : MonoBehaviour{
 			Attack();
 		}
 		
-		if(player.GetComponent<PlayerScript>().playerHealth <= 0){
+		if(playerHealth <= 0){
 			this.enabled = false;
 		}
 		
@@ -34,8 +41,9 @@ public class SwordController : MonoBehaviour{
 
 		//Attack code
 		attackCooldown = Time.time + swingDelay;
-		GetComponent<Animator>().SetTrigger("Attack");	//Play attack animation
-		
+		animator.SetTrigger("Attack");									//Play attack animation
+		source.clip = sounds[Random.Range(0, sounds.Length)];			//Play attack sound
+		source.Play();
 		Collider[] minotaurCollider = Physics.OverlapSphere(damagePoint.position, AOERadius, enemyLayer);	//Cast AOE sphere to get minotaur's collider
 		
 		foreach(var Col in minotaurCollider){

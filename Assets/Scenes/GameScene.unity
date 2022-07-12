@@ -742,7 +742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d99decbde141349a4c817a439b9779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeSize: 20
+  mazeSize: 15
   size: 3
   wallPrefab: {fileID: 6454553874258332898, guid: 2c5781c9a8d001a458a964fa42ebc775, type: 3}
 --- !u!4 &266104879
@@ -6888,7 +6888,6 @@ MonoBehaviour:
   mazeRendererReference: {fileID: 266104877}
   sliders:
   - {fileID: 1110685802}
-  - {fileID: 1249013667}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -13054,7 +13053,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5833333, y: 1}
+  m_AnchorMax: {x: 0.041666668, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18957,8 +18956,8 @@ RectTransform:
   m_Father: {fileID: 1103472589}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5833333, y: 0}
-  m_AnchorMax: {x: 0.5833333, y: 1}
+  m_AnchorMin: {x: 0.041666668, y: 0}
+  m_AnchorMax: {x: 0.041666668, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

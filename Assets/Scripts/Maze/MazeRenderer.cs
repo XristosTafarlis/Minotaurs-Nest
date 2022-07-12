@@ -2,11 +2,8 @@ using UnityEngine;
 //using UnityEditor.AI;
 
 public class MazeRenderer : MonoBehaviour{
-
-    [Range(4, 50)]
-    public int mazeSize;
-	
-    public float size = 1f;
+    [Range(4, 50)] public int mazeSize;
+    [Range(0.5f, 5f)] public float size = 3f;
 
     [SerializeField]
     private Transform wallPrefab = null;

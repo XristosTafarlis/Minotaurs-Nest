@@ -34,7 +34,7 @@ public class PropsSpawner : MonoBehaviour{
 		}
 		
 		RescaleGroundPlane();
-    }
+	}
 	
 	void minotaurActivate(){
 		minotaur.SetActive(true);

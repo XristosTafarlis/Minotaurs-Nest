@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour{
 		
 		if (playerInSightRange && !playerInAttackRange){		//If player in range
 			if(!minotaurSeesWall){
-				ChasePlayer();									//If minotaur sees player, chase 
+				ChasePlayer();									//If minotaur sees player, chase
 			}else{												//Else patrol
 				Patroling();
 			}
@@ -179,7 +179,6 @@ public class EnemyAI : MonoBehaviour{
 	#region Attack Code
 	
 	private void AttackPlayer(){
-		
 		//Make sure enemy doesn't move
 		agent.SetDestination(transform.position);
 		//agent.velocity = Vector3.zero;
@@ -209,7 +208,6 @@ public class EnemyAI : MonoBehaviour{
 	#region Get Attacked
 	
 	public void TakeDamage(int damage){
-		
 		agent.SetDestination(transform.position);
 		//agent.velocity = Vector3.zero;
 		

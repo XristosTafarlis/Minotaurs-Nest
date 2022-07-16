@@ -48,7 +48,7 @@ public class Menu : MonoBehaviour{
 		Cursor.lockState = CursorLockMode.None;		//Free mouse
 		pauseMenuUI.SetActive(true);
 		Time.timeScale = 0f;
-		gameIsPaused = true;        
+		gameIsPaused = true;
 	}
 	
 	public void Resume(){

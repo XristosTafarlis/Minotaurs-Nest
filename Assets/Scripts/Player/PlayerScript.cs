@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour{
 	[SerializeField] GameObject swordHolder;
 	[SerializeField] AudioSource damageAudioSuorce;
 	[SerializeField] GameObject cam;
+	[SerializeField] GameObject killTheMinotaur;
 	[SerializeField] GameObject bloodImage;
 	Color color;
 	
@@ -48,8 +49,10 @@ public class PlayerScript : MonoBehaviour{
 			Destroy(other.gameObject, 0.5f);						//Destroy the amphora
 			
 			if(amphorasPicked >= amphorasNeeded){
+				if(killTheMinotaur != null){
+					killTheMinotaur.SetActive(true);
+				}
 				swordHolder.SetActive(true);
-				Debug.Log("Sword up");
 			}
 		}
 	}

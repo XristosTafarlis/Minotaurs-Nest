@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour{
 	[SerializeField] GameObject pauseMenuUI;
 	[SerializeField] GameObject settingsMenuUI;
 	[SerializeField] GameObject mazeRendererReference;
+	[SerializeField] GameObject bloodImage;
 	[SerializeField] Slider[] sliders;
 	
 	[HideInInspector] public static int mazeS;
@@ -20,15 +21,16 @@ public class Menu : MonoBehaviour{
 	
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
-			
 			if(gameIsPaused == true){
 				if(!inSettings){
+					bloodImage.SetActive(true);
 					Resume();
 				}else{
 					Back();
 				}
 				
 			}else{
+				bloodImage.SetActive(false);
 				Pause();
 			}
 		}
@@ -53,6 +55,7 @@ public class Menu : MonoBehaviour{
 	
 	public void Resume(){
 		Cursor.lockState = CursorLockMode.Locked;	//Locked mouse
+		bloodImage.SetActive(true);
 		pauseMenuUI.SetActive(false);
 		Time.timeScale = 1f;
 		gameIsPaused = false;

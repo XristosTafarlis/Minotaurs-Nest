@@ -11,7 +11,7 @@ public class PropsSpawner : MonoBehaviour{
 	[SerializeField] GameObject minotaur = null;
 	
 	[Space(20)]
-	[SerializeField] int numberOfAmphoras = 12;
+	public int numberOfAmphoras = 12;
 	
 	int size;
 	float width;

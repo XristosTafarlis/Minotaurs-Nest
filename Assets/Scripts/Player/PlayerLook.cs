@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour{
 	[SerializeField] Transform playerBody;
+	[HideInInspector] public bool shake;
+	
 	public static float mouseSensitivity = 1f;
 	float xRotation = 0f;
 	
@@ -9,15 +12,35 @@ public class PlayerLook : MonoBehaviour{
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	void Update(){
+	void Update(){		
+		
+		if(shake){
+			StartCoroutine(Shaking());
+		}
 		
 		Look();
-		
 		if(Input.GetMouseButton(1)){
 			ZoomIn();
 		}if(Input.GetMouseButtonUp(1)){
 			ZoomOut();
 		}
+	}
+	
+	public IEnumerator Shaking(){
+		float elapsed = 0.0f;
+		shake = false;
+		
+		while (elapsed < 0.35f){
+			float x = Random.Range(-0.1f, 0.1f);
+			float y = Random.Range(0.6f, 0.8f);
+			
+			transform.localPosition = new Vector3 (x, y, 0);
+			
+			elapsed += Time.deltaTime;
+			
+			yield return null;
+		}
+		transform.localPosition = new Vector3(0, 0.7f, 0);
 	}
 	
 	void ZoomIn(){

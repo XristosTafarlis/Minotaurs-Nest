@@ -13,20 +13,14 @@ public class PlayerLook : MonoBehaviour{
 	}
 
 	void Update(){		
-		
 		if(shake){
-			StartCoroutine(Shaking());
+			StartCoroutine(CameraShake());
 		}
-		
 		Look();
-		if(Input.GetMouseButton(1)){
-			ZoomIn();
-		}if(Input.GetMouseButtonUp(1)){
-			ZoomOut();
-		}
+		Zoom();
 	}
 	
-	public IEnumerator Shaking(){
+	public IEnumerator CameraShake(){
 		float elapsed = 0.0f;
 		shake = false;
 		
@@ -41,6 +35,14 @@ public class PlayerLook : MonoBehaviour{
 			yield return null;
 		}
 		transform.localPosition = new Vector3(0, 0.7f, 0);
+	}
+	
+	void Zoom(){
+		if(Input.GetMouseButton(1)){
+			ZoomIn();
+		}if(Input.GetMouseButtonUp(1)){
+			ZoomOut();
+		}
 	}
 	
 	void ZoomIn(){

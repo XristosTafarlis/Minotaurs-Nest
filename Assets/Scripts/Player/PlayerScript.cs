@@ -7,29 +7,52 @@ public class PlayerScript : MonoBehaviour{
 	[SerializeField] GameObject swordHolder;
 	[SerializeField] AudioSource damageAudioSuorce;
 	[SerializeField] GameObject cam;
-	[SerializeField] GameObject killTheMinotaur;
+	[SerializeField] GameObject killTheMinotaurText;
 	[SerializeField] GameObject bloodImage;
+	[SerializeField] Text healthText;
+	[SerializeField] Image healthBar;
 	Color color;
 	
 	[Header("Variables")]
 	public int playerHealth = 100;
+	private float maxHealth;
 	public int amphorasNeeded = 4;
 	public static bool playsIsAlive = true;
 	
 	[HideInInspector] public int amphorasPicked = 0;
 	
 	private void Start() {
+		maxHealth = playerHealth * 1f;
 		color = bloodImage.GetComponent<Image>().color;
 	}
 	void Update() {
-		if (playerHealth <= 0 ){
-			Debug.Log("Player is Dead");
-			Invoke("GameOver", 2f);
-			gameObject.GetComponent<PlayerMovement>().enabled = false;
-			gameObject.GetComponent<CharacterController>().enabled = false;
+		isDead();
+		blood();
+		health();
+	}
+
+	void health(){
+		healthBar.fillAmount = (playerHealth/maxHealth);
+		if(playerHealth >= 0){
+			healthText.text = "Health " + playerHealth;
+		}else{
+			healthText.text = "You died";
 		}
-		color.a = (100 - playerHealth) * 0.01f;
+	}
+	
+	void blood(){
+		color.a = (maxHealth - playerHealth) * 0.01f;
 		bloodImage.GetComponent<Image>().color = color;
+	}
+	
+	void isDead(){
+		if (playerHealth <= 0 ){
+			Invoke("GameOver", 2f);
+			Cursor.lockState = CursorLockMode.Locked;
+			GetComponent<PlayerMovement>().enabled = false;
+			GetComponent<CharacterController>().enabled = false;
+			swordHolder.GetComponent<SwordController>().enabled = false;
+		}
 	}
 
 	public void PlayerTakeDamage(int damage){
@@ -49,8 +72,8 @@ public class PlayerScript : MonoBehaviour{
 			Destroy(other.gameObject, 0.5f);						//Destroy the amphora
 			
 			if(amphorasPicked >= amphorasNeeded){
-				if(killTheMinotaur != null){
-					killTheMinotaur.SetActive(true);
+				if(killTheMinotaurText != null){
+					killTheMinotaurText.SetActive(true);
 				}
 				swordHolder.SetActive(true);
 			}

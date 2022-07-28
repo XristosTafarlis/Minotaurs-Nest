@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour{
 	[SerializeField] GameObject settingsMenuUI;
 	[SerializeField] GameObject mazeRendererReference;
 	[SerializeField] GameObject bloodImage;
+	[SerializeField] GameObject crosshairImage;
 	[SerializeField] Slider[] sliders;
 	
 	[HideInInspector] public static int mazeS;
@@ -24,6 +25,7 @@ public class Menu : MonoBehaviour{
 			if(gameIsPaused == true){
 				if(!inSettings){
 					bloodImage.SetActive(true);
+					crosshairImage.SetActive(true);
 					Resume();
 				}else{
 					Back();
@@ -31,6 +33,7 @@ public class Menu : MonoBehaviour{
 				
 			}else{
 				bloodImage.SetActive(false);
+				crosshairImage.SetActive(false);
 				Pause();
 			}
 		}
@@ -56,6 +59,7 @@ public class Menu : MonoBehaviour{
 	public void Resume(){
 		Cursor.lockState = CursorLockMode.Locked;	//Locked mouse
 		bloodImage.SetActive(true);
+		crosshairImage.SetActive(true);
 		pauseMenuUI.SetActive(false);
 		Time.timeScale = 1f;
 		gameIsPaused = false;

@@ -137,7 +137,7 @@ public class EnemyAI : MonoBehaviour{
 			SearchWalkPoint();
 
 		if (walkPointSet){
-			if(agent.isActiveAndEnabled){
+			if(agent.isActiveAndEnabled && !minotaruIsDead){
 				agent.SetDestination(walkPoint);
 			}
 		}
@@ -164,7 +164,7 @@ public class EnemyAI : MonoBehaviour{
 
 	private void ChasePlayer(){
 
-		if(!playerChaseSoundRefference.isPlaying){
+		if(!playerChaseSoundRefference.isPlaying && !minotaruIsDead){
 			playerChaseSoundRefference.volume = 1;
 			playerChaseSoundRefference.Play();
 		}
@@ -172,7 +172,7 @@ public class EnemyAI : MonoBehaviour{
 		anim.SetBool("isRunning", true);
 		agent.speed = chaseSpeed;
 		walkPoint = player.position;		//Making last seen position of player the walk point
-		if(agent.enabled == true)
+		if(agent.enabled == true && !minotaruIsDead)
 			agent.SetDestination(walkPoint);
 	}
 
@@ -222,8 +222,13 @@ public class EnemyAI : MonoBehaviour{
 		if (health <= 0){
 			minotaruIsDead = true;
 			popUpText.SetActive(true);
-			agent.enabled = false;
-			Invoke("DestroyEnemy", 5f);
+			//agent.enabled = false;
+
+			if(playerChaseSoundRefference.isPlaying){
+				StartCoroutine(ChaseSoundFadeOut(playerChaseSoundRefference, 300));
+			}
+
+			Invoke("DestroyEnemy", 4f);
 			anim.SetTrigger("isDead");
 			return;
 		}

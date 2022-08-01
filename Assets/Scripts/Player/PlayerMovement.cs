@@ -1,10 +1,8 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour{
 	[Header("Refferences")]
-	[SerializeField] CharacterController controller;
+	CharacterController controller;
 
 	[Header("Player stats")]
 	[SerializeField] [Range(0.5f, 3f)] float crouchSpeed = 1.5f;
@@ -21,17 +19,17 @@ public class PlayerMovement : MonoBehaviour{
 	[SerializeField] LayerMask groundMask;
 
 	Vector3 velocity;
-	[HideInInspector] bool isGrounded;
+	public bool isGrounded;
 
 	//Not used for now
 	#region Variables for references
-	/*
-	public static bool isWalking;
-	public static bool isRuning;
-	*/
+
+	public bool isWalking;
+
 	#endregion
 
 	void Start() {
+		controller = GetComponent<CharacterController>();
 		finalSpeed = walkSpeed;
 	}
 
@@ -45,22 +43,17 @@ public class PlayerMovement : MonoBehaviour{
 		Jump();
 		//Lean();
 
-		//Not used for now
 		#region Running and Walking checks
-		/*
+
 		//Checking if player is on ground and moving
-		if( (Mathf.Abs(GetComponent<CharacterController>().velocity.x) > 0.5f || Mathf.Abs(GetComponent<CharacterController>().velocity.z) > 0.5f ) && isGrounded){
+		//if(controller.velocity.sqrMagnitude != 0.0f){
+		//Debug.Log(controller.velocity.magnitude);
+		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)){
 			isWalking = true;
-			isRuning = false;
-			if(Input.GetButton("Fire3")){
-				isWalking = false;
-				isRuning = true;
-			}
 		}else{
 			isWalking = false;
-			isRuning = false;
 		}
-		*/
+
 		#endregion
 	}
 
@@ -76,7 +69,7 @@ public class PlayerMovement : MonoBehaviour{
 
 	void Gravity(){
 		//Aplying gravity
-		if(isGrounded && velocity.y <0){
+		if(isGrounded && velocity.y < 0){
 			velocity.y = -2f;
 		}
 		velocity.y += gravity * Time.deltaTime;

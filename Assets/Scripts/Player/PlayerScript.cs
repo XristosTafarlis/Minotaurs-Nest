@@ -43,6 +43,10 @@ public class PlayerScript : MonoBehaviour{
 	void blood(){
 		color.a = (maxHealth - playerHealth) * 0.01f;
 		bloodImage.GetComponent<Image>().color = color;
+		if(EnemyAI.minotaruIsDead){
+			bloodImage.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+			playerHealth = (int)maxHealth;
+		}
 	}
 
 	void isDead(){

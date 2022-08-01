@@ -838,8 +838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d99decbde141349a4c817a439b9779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeSize: 10
-  size: 3
+  size: 15
+  width: 3
   wallPrefab: {fileID: 6454553874258332898, guid: 2c5781c9a8d001a458a964fa42ebc775, type: 3}
 --- !u!4 &266104879
 Transform:
@@ -862,12 +862,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266104877}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec83c4b43a2833148a3f901ef935b52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FPS: 144
+  FPS: 21
 --- !u!114 &266104881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5919,7 +5919,7 @@ GameObject:
   - component: {fileID: 369410007}
   - component: {fileID: 369410010}
   m_Layer: 5
-  m_Name: Kill the minotaur
+  m_Name: Pop Up Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5942,7 +5942,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 612.9565, y: 49.9946}
+  m_SizeDelta: {x: 1367.603, y: 49.9946}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &369410007
 MonoBehaviour:
@@ -5972,7 +5972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.36391956, b: 0.36391956, a: 1}
+  m_Color: {r: 0.8862745, g: 0.3647059, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6554,7 +6554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &554291005
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6666,7 +6666,7 @@ MonoBehaviour:
   swordHolder: {fileID: 90022523}
   damageAudioSuorce: {fileID: 554291010}
   cam: {fileID: 767108946}
-  killTheMinotaurText: {fileID: 369410005}
+  popUpText: {fileID: 369410005}
   bloodImage: {fileID: 719192487}
   healthText: {fileID: 2017257102}
   healthBar: {fileID: 2032603104}
@@ -6721,7 +6721,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554291004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -55}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 1513250948}
@@ -13181,9 +13181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amphora: {fileID: 552084795767237620, guid: 2644f882cec0eb141abc4aa8f33d3a06, type: 3}
   mazeRenderer: {fileID: 266104877}
-  groundPlane: {fileID: 306631156}
-  player: {fileID: 554291009}
-  guard: {fileID: 2056594347}
+  groundPlane: {fileID: 306631152}
+  player: {fileID: 554291004}
+  guard: {fileID: 2056594346}
   minotaur: {fileID: 8193575324396977459}
   numberOfAmphoras: 12
 --- !u!4 &1204374412
@@ -13198,7 +13198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1210046935
 GameObject:
@@ -23524,6 +23524,7 @@ MonoBehaviour:
   player: {fileID: 554291009}
   mazeRenderer: {fileID: 266104879}
   playerChaseSoundRefference: {fileID: 1691977501}
+  popUpText: {fileID: 369410005}
   playerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -23555,10 +23556,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8193575324396977463}
+  - component: {fileID: 8193575324396977460}
   - component: {fileID: 8193575324396977462}
   - component: {fileID: 8193575324396977457}
   - component: {fileID: 8193575324396977456}
-  - component: {fileID: 8193575324396977460}
   - component: {fileID: 8193575324396977461}
   m_Layer: 8
   m_Name: Minotaur
@@ -23575,7 +23576,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8193575324396977459}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.22
   m_Height: 1.4333197
@@ -23713,7 +23714,7 @@ Transform:
   - {fileID: 543450653516266410}
   - {fileID: 521575085}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8219867449732801868
 Transform:

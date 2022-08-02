@@ -40,7 +40,7 @@ public class PropsSpawner : MonoBehaviour{
 		}else{
 			groundPlane.transform.position = new Vector3( 0f, -1.6f, 0f);
 		}
-		groundPlane.transform.localScale = new Vector3(size * width, 1f, size * width);
+		groundPlane.transform.localScale = new Vector3(size * width + 6f, 1f, size * width + 6f);
 	}
 
 	void SpawnPlayer(){

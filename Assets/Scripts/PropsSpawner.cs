@@ -25,7 +25,7 @@ public class PropsSpawner : MonoBehaviour{
 		SpawnPlayer();
 		SpawnAmphoras();
 		RescaleGroundPlane();
-
+		
 		Invoke("MinotaurActivate", 1);
 	}
 

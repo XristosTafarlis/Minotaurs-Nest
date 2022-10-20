@@ -1,13 +1,27 @@
-```
-Cotnrols  
-  
-WASD -> movement  
-Space -> Jump  
-Left Shift -> Run  
-Left Ctrl -> Crouch  
-Mouse 1 -> Attack  
-Mouse 2 -> Cammera Zoom  
-```
+# Minotaur's Nest
+
+### Play [here](https://xristostafarlis.github.io/Minotaurs-Nest/Build/index.html)
+
+Ένα παιχνίδι το οποίο δημιουργήθηκε σαν
+
+A game created as an assesment for my internship
+
+
+## **Keybinds**
+
+- Movement
+  > W A S D
+- Jump
+  > Space
+- Run
+  > Left Shift
+- Crouch
+  > Left Control
+- Attack
+  > Mouse 1
+- Cammera Zoom
+  > Mouse 2
+
 ```
 Game's consept:  
   

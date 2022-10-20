@@ -2,7 +2,7 @@
 
 ### Play [here](https://xristostafarlis.github.io/Minotaurs-Nest/Build/index.html)
 
-Ένα παιχνίδι το οποίο δημιουργήθηκε σαν
+Ένα παιχνίδι το οποίο δημιουργήθηκε για αξιολόγηση πριν την έναρξη της πρακτικής μου
 
 A game created as an assesment for my internship
 

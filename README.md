@@ -21,15 +21,15 @@ A game created as an assesment for my internship
   > Mouse 1
 - Cammera Zoom
   > Mouse 2
-- Pause / Menu
+- Pause Menu
   > Escape (Twice)
 
-```
-Game's consept:  
-  
+
+## Game's consept:  
+```  
 Random maze every time you run the game.  
 Player starts outside the maze. 
 Player tries to collect amphoras.  
 Minotaur roamning arround the maze.  
-Goal is to find him when you have collected the amphoras and kill him.
+The goal is to find him when you have collected the amphoras and kill him.
 ```

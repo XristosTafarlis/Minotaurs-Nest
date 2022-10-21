@@ -21,6 +21,8 @@ A game created as an assesment for my internship
   > Mouse 1
 - Cammera Zoom
   > Mouse 2
+- Pause / Menu
+  > Escape (Twice)
 
 ```
 Game's consept:  
